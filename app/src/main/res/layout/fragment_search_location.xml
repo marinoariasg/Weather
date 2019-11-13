@@ -140,7 +140,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_light"
-                    android:text="15°"
+                    app:temperature="@{searchLocationViewModel.response}"
                     android:textColor="@android:color/white"
                     android:textSize="30sp"
                     tools:text="15°" />
@@ -148,7 +148,7 @@
                 <ImageView
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:src="@drawable/shower_rain" />
+                    app:weatherIcon="@{searchLocationViewModel.response}" />
 
             </LinearLayout>
 
@@ -169,7 +169,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="8dp"
                     android:fontFamily="@font/homenaje"
-                    android:text="London"
+                    app:cityName="@{searchLocationViewModel.response}"
                     android:textColor="@android:color/white"
                     android:textSize="14sp"
                     tools:text="Crayford" />
@@ -178,7 +178,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/homenaje"
-                    android:text="13 Nov 2019"
+                    app:timeOfCalculation="@{searchLocationViewModel.response}"
                     android:textColor="@android:color/white"
                     android:textSize="14sp"
                     tools:text="01/08 6:13 am" />
