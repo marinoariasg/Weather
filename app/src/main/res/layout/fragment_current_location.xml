@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".currentLocation.CurrentLocationFragment">
+
+    <data>
+
+        <variable
+            name="currentLocationViewModel"
+            type="com.marinoariasg.conduentweather.currentLocation.CurrentLocationViewModel" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_gradient"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/TemperatureText"
+            app:temperature="@{currentLocationViewModel.response}"
+            tools:text="15" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            app:weatherIcon="@{currentLocationViewModel.response}" />
+
+        <ImageView
+            android:id="@+id/location_image_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/location_icon" />
+
+        <TextView
+            style="@style/UpdateTextStyle"
+            app:cityName="@{currentLocationViewModel.response}"
+            tools:text="Crayford" />
+
+        <TextView
+            style="@style/UpdateTextStyle"
+            app:timeOfCalculation="@{currentLocationViewModel.response}"
+            tools:text="01/08 6:13 am" />
+
+        <TextView
+            style="@style/WeatherVariousPropertiesTextStyle"
+            app:variousProperties="@{currentLocationViewModel.response}" />
+
+    </LinearLayout>
+</layout>

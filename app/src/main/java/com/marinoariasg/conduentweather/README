@@ -1,0 +1,18 @@
+- Version of Android no specified
+
+application which will enable a user to use all of the available functional options of the
+"Current Weather Data API"
+
+Response for the Weather API needs to be with JSON element.
+
+OpenWeatherMap API:
+Website: https://openweathermap.org/api
+after login you get the API Key APPID=1f996ae109bde37ce5565fda4eb07438"
+
+BASE_URL = "https://api.openweathermap.org/data/2.5/weather/"
+query parameters: ?q={city name},{country code}
+
+By city name
+Description:
+You can call by city name or city name and country code. API responds with a list of results
+that match a searching word.
