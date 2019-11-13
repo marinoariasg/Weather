@@ -10,9 +10,7 @@ class CurrentLocationModelFactory(private val currentLocation: CurrentLocationDa
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(CurrentLocationViewModel::class.java)) {
-            return CurrentLocationViewModel(
-                currentLocation
-            ) as T
+            return CurrentLocationViewModel(currentLocation) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

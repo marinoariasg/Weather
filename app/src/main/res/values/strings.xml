@@ -3,8 +3,13 @@
     <string name="search_location">Search Location</string>
     <string name="settings">Settings</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string-array name="weather_api_options">
+        <item>City name</item>
+        <item>City ID</item>
+        <item>lat, lon coordinates</item>
+        <item>ZipCode</item>
+
+    </string-array>
 
 
 </resources>

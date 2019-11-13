@@ -30,16 +30,10 @@ class CurrentLocationFragment : Fragment() {
 
         // TODO: Change this with phone location
         val currentLocationData =
-            CurrentLocationData(
-                cityName = "Havant",
-                countryCode = "uk"
-            )
+            CurrentLocationData(cityName = "Havant", countryCode = "uk")
 
         // Create an instance of the ViewModelFactory
-        val currentLocationModelFactory =
-            CurrentLocationModelFactory(
-                currentLocationData
-            )
+        val currentLocationModelFactory = CurrentLocationModelFactory(currentLocationData)
 
         // Get the ViewModel associated with this fragment.
         val currentLocationViewModel = ViewModelProviders.of(
@@ -65,7 +59,10 @@ class CurrentLocationFragment : Fragment() {
         when (item.itemId) {
             // TODO: Add when settings fragment is ready
             //R.id.settings -> settings_fragment
-            R.id.search_location_fragment -> NavigationUI.onNavDestinationSelected(item, view!!.findNavController())
+            R.id.search_location_fragment -> NavigationUI.onNavDestinationSelected(
+                item,
+                view!!.findNavController()
+            )
         }
         return super.onOptionsItemSelected(item)
     }

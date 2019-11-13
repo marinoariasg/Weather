@@ -10,6 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
+// TODO: add private val _unitsFormat: String to the constructor
 class CurrentLocationViewModel(private val _currentLocationData: CurrentLocationData) :
     ViewModel() {
 

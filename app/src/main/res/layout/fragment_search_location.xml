@@ -5,18 +5,32 @@
 
     <data>
 
+        <variable
+            name="searchLocationViewModel"
+            type="com.marinoariasg.conduentweather.searchLocation.SearchLocationViewModel" />
     </data>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/background_gradient">
+        android:background="@drawable/background_gradient"
+        android:orientation="vertical">
 
-        <!-- TODO: Update blank fragment layout -->
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment" />
+            android:layout_height="wrap_content"
+            android:text="Select Parameters"
+            android:paddingTop="16dp"
+            android:gravity="center"
+            android:textSize="16sp"
+            android:textColor="@android:color/darker_gray"/>
+
+        <androidx.appcompat.widget.AppCompatSpinner
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:entries="@array/weather_api_options"
+            android:popupBackground="@color/colorPrimaryDark"
+            android:theme="@style/Spinner" />
 
     </LinearLayout>
 </layout>

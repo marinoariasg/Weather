@@ -34,4 +34,12 @@
         <item name="android:fontFamily">@font/roboto_light</item>
     </style>
 
+<!--    SearchLocationsFragment-->
+    <style name="Spinner" parent="Widget.AppCompat.Light.DropDownItem.Spinner">
+        <item name="android:paddingStart">0dp</item>
+        <item name="android:paddingEnd">0dp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
 </resources>
