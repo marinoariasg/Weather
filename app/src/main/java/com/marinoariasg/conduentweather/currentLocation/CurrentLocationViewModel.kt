@@ -19,7 +19,7 @@ class CurrentLocationViewModel(private val _currentLocationData: CurrentLocation
 
     private val _response = MutableLiveData<WeatherData>()
 
-    // The external immutable LiveData for the request status String
+    // The external immutable LiveData, The xml binding is observing this val
     val response: LiveData<WeatherData>
         get() = _response
 

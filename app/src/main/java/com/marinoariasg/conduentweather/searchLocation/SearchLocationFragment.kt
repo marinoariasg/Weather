@@ -29,9 +29,14 @@ class SearchLocationFragment : Fragment() {
             R.layout.fragment_search_location, container, false
         )
 
+        // Reference of the application that this fragment is attached to, pass it to the
+        // viewModelFactory provider
+        val application = requireNotNull(this.activity).application
+
         // TODO: get the unitsFormat from SharedPreferences
         //Create an instance of the ViewModelFactory
-        val searchLocationViewModelFactory = SearchLocationViewModelFactory(unitsFormat = "metric")
+        val searchLocationViewModelFactory = SearchLocationViewModelFactory(
+            unitsFormat = "metric", application = application)
 
         // Get the ViewModel associated with this fragment.
         val searchLocationViewModel = ViewModelProviders.of(

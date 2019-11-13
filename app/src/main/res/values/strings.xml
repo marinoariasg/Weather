@@ -3,13 +3,4 @@
     <string name="search_location">Search Location</string>
     <string name="settings">Settings</string>
 
-    <string-array name="weather_api_options">
-        <item>By City name</item>
-        <item>By City ID</item>
-        <item>By lat, lon coordinates</item>
-        <item>By ZipCode</item>
-
-    </string-array>
-
-
 </resources>

@@ -26,14 +26,42 @@
             android:textColor="@android:color/darker_gray"
             android:textSize="16sp" />
 
-        <!--        android:onClick="@{() -> searchLocationViewModel.onCheckApiParameter()}"-->
-        <androidx.appcompat.widget.AppCompatSpinner
+        <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:entries="@array/weather_api_options"
-            android:popupBackground="@color/colorPrimaryDark"
-            android:theme="@style/Spinner" />
+            android:orientation="vertical">
 
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> searchLocationViewModel.onSetByCityName()}"
+                android:text="By City name"
+                android:textColor="@android:color/white" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> searchLocationViewModel.onSetByCityId()}"
+                android:text="By City ID"
+                android:textColor="@android:color/white" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> searchLocationViewModel.onSetByLatAndLon()}"
+                android:text="By lat, lon"
+                android:textColor="@android:color/white" />
+
+            <RadioButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="@{() -> searchLocationViewModel.onSetByZipCode()}"
+                android:text="By ZipCode"
+                android:textColor="@android:color/white" />
+
+        </RadioGroup>
+
+        <!--        search by City Name-->
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="30dp"
@@ -45,8 +73,11 @@
             android:inputType="text"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:text="@={searchLocationViewModel.cityName}"
+            android:visibility="@{searchLocationViewModel.showByCityNameOptions}" />
 
+<!--        country code-->
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="30dp"
@@ -58,7 +89,25 @@
             android:inputType="text"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:text="@={searchLocationViewModel.countryCode}"
+            android:visibility="@{searchLocationViewModel.showByCityNameOptions}" />
+
+        <!--        search by Id-->
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="45dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/search_location_background_edit_text"
+            android:hint="City Id"
+            android:inputType="number"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:textSize="18sp"
+            android:text="@={searchLocationViewModel.cityId}"
+            android:visibility="@{searchLocationViewModel.showByCityIdOptions}" />
 
         <Button
             style="?android:attr/borderlessButtonStyle"
@@ -71,7 +120,9 @@
             android:background="@drawable/search_location_background_edit_text"
             android:text="Search"
             android:textAllCaps="false"
-            android:textColor="@color/colorPrimaryDark" />
+            android:textColor="@color/colorPrimaryDark"
+            android:onClick="@{() -> searchLocationViewModel.onSearch()}"
+            android:visibility="@{searchLocationViewModel.showButton}"/>
 
         <LinearLayout
             android:layout_width="match_parent"

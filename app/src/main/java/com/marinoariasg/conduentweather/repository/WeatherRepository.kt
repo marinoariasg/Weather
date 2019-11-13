@@ -6,6 +6,8 @@ import timber.log.Timber
 
 class WeatherRepository() {
 
+    // TODO: change the try catch to one single fun
+
     suspend fun refreshWeatherData(cityName: String, countryCode: String, units: String? = null)
             : WeatherData {
         // Enforce this: q={city name},{country code} for weather api
@@ -20,6 +22,21 @@ class WeatherRepository() {
         var result = WeatherData()
         try {
             result = getByCityName.await()
+            Timber.i("$result")
+        } catch (t: Throwable) {
+            Timber.e("Failure: ${t.message}")
+        }
+        return result
+    }
+
+    suspend fun cityByIdData(cityId: Int, units: String? = null): WeatherData {
+
+        var getByCityId = OpenWeatherApi.retrofitService.getByCityId(
+            cityId = cityId, units = units
+        )
+        var result = WeatherData()
+        try {
+            result = getByCityId.await()
             Timber.i("$result")
         } catch (t: Throwable) {
             Timber.e("Failure: ${t.message}")
