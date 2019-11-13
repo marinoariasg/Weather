@@ -4,10 +4,10 @@
     <string name="settings">Settings</string>
 
     <string-array name="weather_api_options">
-        <item>City name</item>
-        <item>City ID</item>
-        <item>lat, lon coordinates</item>
-        <item>ZipCode</item>
+        <item>By City name</item>
+        <item>By City ID</item>
+        <item>By lat, lon coordinates</item>
+        <item>By ZipCode</item>
 
     </string-array>
 
