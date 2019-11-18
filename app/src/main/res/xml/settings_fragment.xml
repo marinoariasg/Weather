@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<!--    TODO: get this preference working-->
+    <SwitchPreference
+        android:defaultValue="true"
+        android:key="phone_current_location"
+        android:title="Use Phone current location" />
+
+<!--    TODO: Display also countryCode-->
+    <EditTextPreference
+        android:defaultValue="Havant"
+        android:icon="@drawable/location_icon"
+        android:selectAllOnFocus="true"
+        android:singleLine="true"
+        app:key="city_name"
+        app:summary="Place name of the current weather"
+        app:title="Weather Location"
+        app:useSimpleSummaryProvider="true" />
+
+</PreferenceScreen>

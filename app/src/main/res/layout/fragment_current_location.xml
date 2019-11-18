@@ -21,13 +21,13 @@
 
         <TextView
             style="@style/TemperatureText"
-            app:temperature="@{currentLocationViewModel.response}"
+            app:temperature="@{currentLocationViewModel.weatherData}"
             tools:text="15" />
 
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            app:weatherIcon="@{currentLocationViewModel.response}" />
+            app:weatherIcon="@{currentLocationViewModel.weatherData}" />
 
         <ImageView
             android:id="@+id/location_image_view"
@@ -38,17 +38,17 @@
 
         <TextView
             style="@style/UpdateTextStyle"
-            app:cityName="@{currentLocationViewModel.response}"
+            app:cityName="@{currentLocationViewModel.weatherData}"
             tools:text="Crayford" />
 
         <TextView
             style="@style/UpdateTextStyle"
-            app:timeOfCalculation="@{currentLocationViewModel.response}"
+            app:timeOfCalculation="@{currentLocationViewModel.weatherData}"
             tools:text="01/08 6:13 am" />
 
         <TextView
             style="@style/WeatherVariousPropertiesTextStyle"
-            app:variousProperties="@{currentLocationViewModel.response}" />
+            app:variousProperties="@{currentLocationViewModel.weatherData}" />
 
     </LinearLayout>
 </layout>

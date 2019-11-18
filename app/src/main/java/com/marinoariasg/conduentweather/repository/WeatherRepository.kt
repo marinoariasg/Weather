@@ -4,11 +4,11 @@ import com.marinoariasg.conduentweather.network.OpenWeatherApi
 import com.marinoariasg.conduentweather.network.WeatherData
 import timber.log.Timber
 
-class WeatherRepository() {
+class WeatherRepository {
 
     // TODO: change the try catch to one single fun
 
-    suspend fun refreshWeatherData(cityName: String, countryCode: String, units: String? = null)
+    suspend fun cityNameData(cityName: String, countryCode: String, units: String? = null)
             : WeatherData {
         // Enforce this: q={city name},{country code} for weather api
         val cityNameAndCountryCode = when (countryCode) {

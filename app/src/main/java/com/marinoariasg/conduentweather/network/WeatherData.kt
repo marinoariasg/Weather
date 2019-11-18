@@ -4,7 +4,7 @@ import com.marinoariasg.conduentweather.network.weatherParameters.*
 import com.squareup.moshi.Json
 
 /**
- * Weather parameters in API response
+ * Weather parameters in API weatherData
  */
 data class WeatherData(
 

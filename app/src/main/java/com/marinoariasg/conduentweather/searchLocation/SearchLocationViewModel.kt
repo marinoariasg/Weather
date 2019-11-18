@@ -56,7 +56,7 @@ class SearchLocationViewModel(private val _unitsFormat: String, application: App
     private fun getDataByCityName() {
         Timber.i("By City name")
         viewModelScope.launch {
-            _response.value = weatherRepository.refreshWeatherData(
+            _response.value = weatherRepository.cityNameData(
                 cityName = cityName,
                 countryCode = countryCode,
                 units = "metric"

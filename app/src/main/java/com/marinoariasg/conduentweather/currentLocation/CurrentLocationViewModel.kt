@@ -10,18 +10,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-// TODO: add private val _unitsFormat: String to the constructor
-class CurrentLocationViewModel(private val _currentLocationData: CurrentLocationData) :
+class CurrentLocationViewModel(var simpleWeatherData: SimpleWeatherData) :
     ViewModel() {
 
-    val currentLocationData: CurrentLocationData
-        get() = _currentLocationData
-
-    private val _response = MutableLiveData<WeatherData>()
-
+    private var _weatherData = MutableLiveData<WeatherData>()
     // The external immutable LiveData, The xml binding is observing this val
-    val response: LiveData<WeatherData>
-        get() = _response
+    val weatherData: LiveData<WeatherData>
+        get() = _weatherData
 
     private var vieModelJob = Job()
     private val viewModelScope = CoroutineScope(vieModelJob + Dispatchers.Main)
@@ -29,14 +24,18 @@ class CurrentLocationViewModel(private val _currentLocationData: CurrentLocation
     private val weatherRepository: WeatherRepository = WeatherRepository()
 
     /**
-     * Call getWeatherData() on init so we can display status immediately.
+     * Call getSimpleWeatherData() on init so we can display status immediately.
      */
     init {
+        getWeatherDataByCityName()
+    }
+
+    fun getWeatherDataByCityName() {
         viewModelScope.launch {
-            _response.value = weatherRepository.refreshWeatherData(
-                cityName = _currentLocationData.cityName,
-                countryCode = _currentLocationData.countryCode,
-                units = "metric"
+            _weatherData.value = weatherRepository.cityNameData(
+                cityName = simpleWeatherData.cityName,
+                countryCode = simpleWeatherData.countryCode,
+                units = simpleWeatherData.units
             )
         }
     }
