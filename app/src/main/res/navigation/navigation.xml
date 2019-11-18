@@ -17,6 +17,6 @@
         tools:layout="@layout/fragment_search_location" />
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.marinoariasg.conduentweather.SettingsFragment"
+        android:name="com.marinoariasg.conduentweather.settingsFragment.SettingsFragment"
         android:label="SettingsFragment" />
 </navigation>

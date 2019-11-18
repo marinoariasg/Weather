@@ -3,6 +3,7 @@ package com.marinoariasg.conduentweather.currentLocation
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.marinoariasg.conduentweather.WeatherLookUpParameters
 import com.marinoariasg.conduentweather.network.WeatherData
 import com.marinoariasg.conduentweather.repository.WeatherRepository
 import kotlinx.coroutines.CoroutineScope
@@ -10,11 +11,12 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class CurrentLocationViewModel(var simpleWeatherData: SimpleWeatherData) :
+class CurrentLocationViewModel(var weatherLookUpParameters: WeatherLookUpParameters) :
     ViewModel() {
 
     private var _weatherData = MutableLiveData<WeatherData>()
-    // The external immutable LiveData, The xml binding is observing this val
+    // The external immutable LiveData, This contains all weather data coming from the
+    // OpenWeather API, The xml binding is observing this property.
     val weatherData: LiveData<WeatherData>
         get() = _weatherData
 
@@ -23,19 +25,12 @@ class CurrentLocationViewModel(var simpleWeatherData: SimpleWeatherData) :
 
     private val weatherRepository: WeatherRepository = WeatherRepository()
 
-    /**
-     * Call getSimpleWeatherData() on init so we can display status immediately.
-     */
-    init {
-        getWeatherDataByCityName()
-    }
-
     fun getWeatherDataByCityName() {
         viewModelScope.launch {
             _weatherData.value = weatherRepository.cityNameData(
-                cityName = simpleWeatherData.cityName,
-                countryCode = simpleWeatherData.countryCode,
-                units = simpleWeatherData.units
+                cityName = weatherLookUpParameters.cityName,
+                countryCode = weatherLookUpParameters.countryCode,
+                units = weatherLookUpParameters.units
             )
         }
     }

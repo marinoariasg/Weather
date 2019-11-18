@@ -1,7 +1,8 @@
-package com.marinoariasg.conduentweather
+package com.marinoariasg.conduentweather.settingsFragment
 
 import android.os.Bundle
 import androidx.preference.PreferenceFragmentCompat
+import com.marinoariasg.conduentweather.R
 
 
 class SettingsFragment() : PreferenceFragmentCompat() {

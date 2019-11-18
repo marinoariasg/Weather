@@ -14,8 +14,10 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import com.marinoariasg.conduentweather.R
+import com.marinoariasg.conduentweather.WeatherLookUpParameters
 import com.marinoariasg.conduentweather.databinding.FragmentCurrentLocationBinding
-import com.marinoariasg.conduentweather.stringLiveData
+import com.marinoariasg.conduentweather.settingsFragment.stringLiveData
+import timber.log.Timber
 
 //TODO: add phone current location
 
@@ -37,26 +39,28 @@ class CurrentLocationFragment : Fragment() {
             R.layout.fragment_current_location, container, false
         )
 
-        // TODO: Add also phone's current location data
-        var simpleWeatherData = SimpleWeatherData(cityName = DEFAULT_CITY)
+        val weatherLookUpParameters = WeatherLookUpParameters(cityName = DEFAULT_CITY)
 
-
-        // Create an instance of the ViewModelFactory
-        var currentLocationModelFactory = CurrentLocationModelFactory(simpleWeatherData)
+        // Create an instance of the ViewModelFactory with default weather parameters
+        val currentLocationModelFactory = CurrentLocationModelFactory(weatherLookUpParameters)
 
         // Get the ViewModel associated with this fragment.
-        var currentLocationViewModel = ViewModelProviders.of(
+        val currentLocationViewModel = ViewModelProviders.of(
             this, currentLocationModelFactory
         ).get(CurrentLocationViewModel::class.java)
 
-        // Get Location from SharedPreferences and listen for changes
+        // Get City name or Country from SharedPreferences and listen for changes on this preference
         val preferences = PreferenceManager.getDefaultSharedPreferences(context)
-        preferences.stringLiveData("city_name", DEFAULT_CITY).observe(this, Observer {
-            Toast.makeText(context, it, Toast.LENGTH_LONG).show()
-            simpleWeatherData = SimpleWeatherData(cityName = it)
-            currentLocationViewModel.simpleWeatherData = simpleWeatherData
-            currentLocationViewModel.getWeatherDataByCityName()
-        })
+        preferences.stringLiveData("city_name", DEFAULT_CITY).observe(this,
+            Observer { cityName ->
+                Timber.i("Place changed on preferences: $cityName")
+                // update the parameters with the new changed data before calling the weather API
+                currentLocationViewModel.weatherLookUpParameters =
+                    WeatherLookUpParameters(cityName = cityName)
+                // TODO: Is is calling twice this function ensure that this gets call only once
+                // Call the weather API from ViewModel.
+                currentLocationViewModel.getWeatherDataByCityName()
+            })
 
         // Give the binding access to the currentLocationViewModel
         binding.currentLocationViewModel = currentLocationViewModel
@@ -76,7 +80,6 @@ class CurrentLocationFragment : Fragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            // TODO: Add when settings_fragment fragment is ready
             R.id.settingsFragment -> NavigationUI.onNavDestinationSelected(
                 item, view!!.findNavController()
             )
