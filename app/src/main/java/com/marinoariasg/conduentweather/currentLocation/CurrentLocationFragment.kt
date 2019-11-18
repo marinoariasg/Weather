@@ -26,8 +26,6 @@ import timber.log.Timber
  * A simple [Fragment] subclass.
  */
 
-const val DEFAULT_CITY = "Havant"
-
 class CurrentLocationFragment : Fragment() {
 
     override fun onCreateView(
@@ -39,7 +37,10 @@ class CurrentLocationFragment : Fragment() {
             R.layout.fragment_current_location, container, false
         )
 
-        val weatherLookUpParameters = WeatherLookUpParameters(cityName = DEFAULT_CITY)
+        // get default values so when the app is first installed shows some data
+        val weatherLookUpParameters = WeatherLookUpParameters()
+        // Holder for the city/country name
+        var place = weatherLookUpParameters.cityName
 
         // Create an instance of the ViewModelFactory with default weather parameters
         val currentLocationModelFactory = CurrentLocationModelFactory(weatherLookUpParameters)
@@ -51,12 +52,24 @@ class CurrentLocationFragment : Fragment() {
 
         // Get City name or Country from SharedPreferences and listen for changes on this preference
         val preferences = PreferenceManager.getDefaultSharedPreferences(context)
-        preferences.stringLiveData("city_name", DEFAULT_CITY).observe(this,
-            Observer { cityName ->
+        preferences.stringLiveData("city_name", weatherLookUpParameters.cityName)
+            .observe(this, Observer { cityName ->
                 Timber.i("Place changed on preferences: $cityName")
                 // update the parameters with the new changed data before calling the weather API
+                place = cityName
                 currentLocationViewModel.weatherLookUpParameters =
-                    WeatherLookUpParameters(cityName = cityName)
+                    weatherLookUpParameters.copy(cityName = place)
+                // TODO: Is is calling twice this function ensure that this gets call only once
+                // Call the weather API from ViewModel.
+                currentLocationViewModel.getWeatherDataByCityName()
+            })
+
+        // Get Unit from SharedPreferences and listen for changes on this preference
+        preferences.stringLiveData("units_format", weatherLookUpParameters.units)
+            .observe(this, Observer { unit ->
+                Timber.i("Unit changed on preferences: $unit")
+                currentLocationViewModel.weatherLookUpParameters =
+                    weatherLookUpParameters.copy(units = unit, cityName = place)
                 // TODO: Is is calling twice this function ensure that this gets call only once
                 // Call the weather API from ViewModel.
                 currentLocationViewModel.getWeatherDataByCityName()

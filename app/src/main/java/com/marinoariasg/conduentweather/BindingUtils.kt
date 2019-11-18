@@ -1,12 +1,8 @@
-package com.marinoariasg.conduentweather.currentLocation
+package com.marinoariasg.conduentweather
 
 import android.widget.ImageView
-import android.widget.Spinner
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
-import com.marinoariasg.conduentweather.R
-import com.marinoariasg.conduentweather.convertLongToDateString
-import com.marinoariasg.conduentweather.formatTemperatureToString
 import com.marinoariasg.conduentweather.network.WeatherData
 
 @BindingAdapter("temperature")
@@ -60,13 +56,19 @@ fun TextView.setTimeOfCalculation(item: WeatherData?) {
     }
 }
 
+@BindingAdapter("description")
+fun TextView.setDescription(item: WeatherData?) {
+    item?.let {
+        text = item.weather?.get(0)?.description.toString()
+    }
+}
+
 // TODO do the concatenation on [Utils] and do validation
 @BindingAdapter("variousProperties")
 fun TextView.setVariousProperties(item: WeatherData?) {
     item?.let {
-        text = "${item.weather?.get(0)?.description}\n" +
-                    "Cloudiness: ${item?.clouds?.cloudiness}%\n" +
-                    "Humidity: ${item?.main?.humidity}%\n" +
-                    "Wind Speed: ${item.wind?.speed} mph"
+        text = "Cloudiness: ${item?.clouds?.cloudiness}%\n" +
+                "Humidity: ${item?.main?.humidity}%\n" +
+                "Wind Speed: ${item.wind?.speed} mph"
     }
 }

@@ -11,12 +11,19 @@
 <!--    TODO: Display also countryCode-->
     <EditTextPreference
         android:defaultValue="Havant"
-        android:icon="@drawable/location_icon"
+        android:icon="@drawable/ic_location_drack"
         android:selectAllOnFocus="true"
         android:singleLine="true"
         app:key="city_name"
         app:summary="Place name of the current weather"
         app:title="Weather Location"
         app:useSimpleSummaryProvider="true" />
+
+    <DropDownPreference
+        android:key="units_format"
+        android:title="Units Format"
+        android:entries="@array/temperature_units"
+        app:useSimpleSummaryProvider="true"
+        android:entryValues="@array/temperature_units"/>
 
 </PreferenceScreen>

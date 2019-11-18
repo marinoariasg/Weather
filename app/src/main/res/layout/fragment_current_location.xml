@@ -34,7 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:src="@drawable/location_icon" />
+            android:src="@drawable/ic_location" />
 
         <TextView
             style="@style/UpdateTextStyle"
@@ -45,6 +45,13 @@
             style="@style/UpdateTextStyle"
             app:timeOfCalculation="@{currentLocationViewModel.weatherData}"
             tools:text="01/08 6:13 am" />
+
+        <TextView
+            style="@style/UpdateTextStyle"
+            android:textColor="@android:color/darker_gray"
+            android:layout_marginBottom="16dp"
+            app:description="@{currentLocationViewModel.weatherData}"
+            tools:text="Few Clouds" />
 
         <TextView
             style="@style/WeatherVariousPropertiesTextStyle"
