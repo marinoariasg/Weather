@@ -52,7 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="@{() -> searchLocationViewModel.onSetByLatAndLon()}"
-                android:text=" lat, lon" />
+                android:text=" Geographic Coordinates (Lat, Lon)" />
 
             <RadioButton
                 android:layout_width="wrap_content"
@@ -111,6 +111,7 @@
             android:visibility="@{searchLocationViewModel.byCityId.visibility}" />
 
         <!--        search by Geographic coordinates (lat)-->
+        <!--        accepts negative an positive double-->
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="30dp"
@@ -119,7 +120,7 @@
             android:layout_marginRight="16dp"
             android:background="@drawable/search_location_background_edit_text"
             android:hint="Lat"
-            android:inputType="numberDecimal"
+            android:inputType="numberDecimal|numberSigned"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:text="@={searchLocationViewModel.byLatAndLon.latitude}"
@@ -127,6 +128,7 @@
             android:visibility="@{searchLocationViewModel.byLatAndLon.visibility}" />
 
         <!--        search by Geographic coordinates (lon)-->
+        <!--        accepts negative an positive double-->
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="30dp"
@@ -135,7 +137,7 @@
             android:layout_marginRight="16dp"
             android:background="@drawable/search_location_background_edit_text"
             android:hint="Lon"
-            android:inputType="numberDecimal"
+            android:inputType="numberDecimal|numberSigned"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:text="@={searchLocationViewModel.byLatAndLon.longitude}"

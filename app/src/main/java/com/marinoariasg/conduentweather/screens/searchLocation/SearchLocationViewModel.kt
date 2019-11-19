@@ -51,46 +51,15 @@ class SearchLocationViewModel(private val _unitsFormat: String = "metric", appli
     }
 
     fun onSearch() {
-        when (VISIBLE) {
-            byCityName.visibility.value -> getDataByCityName()
-            byCityId.visibility.value -> getDataByCityId()
-            byLatAndLon.visibility.value -> getDataByLatAndLon()
-            byZipCode.visibility.value -> getDataByZipCode()
-        }
-
-    }
-
-    private fun getDataByCityName() {
         viewModelScope.launch {
-            _response.value = byCityName.getDataFromRepository(weatherRepository)
-        }
-    }
-
-    private fun getDataByCityId() {
-        // Ensure that text is not empty
-        if (byCityId.cityId != "") {
-            viewModelScope.launch {
-                _response.value = byCityId.getDataFromRepository(weatherRepository)
+            when (VISIBLE) {
+                byCityName.visibility.value -> _response.value = byCityName.getDataFromRepository(weatherRepository)
+                byCityId.visibility.value -> _response.value = byCityId.getDataFromRepository(weatherRepository)
+                byLatAndLon.visibility.value -> _response.value = byLatAndLon.getDataFromRepository(weatherRepository)
+                byZipCode.visibility.value -> _response.value = byZipCode.getDataFromRepository(weatherRepository)
             }
         }
     }
-
-    private fun getDataByLatAndLon() {
-        // Ensure that text is not empty
-        if (byLatAndLon.latitude != "" && byLatAndLon.longitude != "") {
-            viewModelScope.launch {
-                _response.value = byLatAndLon.getDataFromRepository(weatherRepository)
-            }
-        }
-    }
-
-    private fun getDataByZipCode() {
-        viewModelScope.launch {
-            _response.value = byZipCode.getDataFromRepository(weatherRepository)
-        }
-
-    }
-
 
     /** Radio buttons options **/
     fun onSetByCityName() {

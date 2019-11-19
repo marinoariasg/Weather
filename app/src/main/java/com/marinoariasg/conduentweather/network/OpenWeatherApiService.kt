@@ -42,7 +42,7 @@ interface OpenWeatherApiService {
      */
     @GET("data/2.5/weather/")
     fun getByCityId(
-        @Query("id") cityId: Int,
+        @Query("id") cityId: String,
         @Query("units") units: String?,
         // API_key as default parameter
         @Query("APPID") apiKey: String = API_KEY
@@ -56,8 +56,8 @@ interface OpenWeatherApiService {
      */
     @GET("data/2.5/weather/")
     fun getByGeographicCoordinates(
-        @Query("lat") latitude: Double,
-        @Query("lon") longitude: Double,
+        @Query("lat") latitude: String,
+        @Query("lon") longitude: String,
         @Query("units") units: String?,
         // API_key as default parameter
         @Query("APPID") apiKey: String = API_KEY

@@ -19,14 +19,14 @@ class WeatherRepository {
         return tryToGetWeatherData(getByCityName)
     }
 
-    suspend fun weatherByCityId(cityId: Int, units: String? = null): WeatherData {
+    suspend fun weatherByCityId(cityId: String, units: String? = null): WeatherData {
         val getByCityId = OpenWeatherApi.retrofitService.getByCityId(
             cityId = cityId, units = units
         )
         return tryToGetWeatherData(getByCityId)
     }
 
-    suspend fun weatherByLatAndLon(lat: Double, lon: Double, units: String? = null): WeatherData {
+    suspend fun weatherByLatAndLon(lat: String, lon: String, units: String? = null): WeatherData {
         val getCityByLatAndLon = OpenWeatherApi.retrofitService
             .getByGeographicCoordinates(latitude = lat, longitude = lon, units = units)
         return tryToGetWeatherData(getCityByLatAndLon)

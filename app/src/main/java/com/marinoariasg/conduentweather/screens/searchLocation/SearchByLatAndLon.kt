@@ -9,7 +9,7 @@ class SearchByLatAndLon(
 
     override suspend fun getDataFromRepository(repository: WeatherRepository): WeatherData {
         return repository.weatherByLatAndLon(
-            lat = latitude.toDouble(), lon = longitude.toDouble(), units = units
+            lat = latitude, lon = longitude, units = units
         )
     }
 
