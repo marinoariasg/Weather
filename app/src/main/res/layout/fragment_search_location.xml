@@ -140,6 +140,38 @@
             android:textSize="18sp"
             android:visibility="@{searchLocationViewModel.showByLatAndLonOptions}" />
 
+        <!--        Search by ZipCode {zip code}, -->
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="45dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/search_location_background_edit_text"
+            android:hint="ZipCode"
+            android:inputType="number"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="@={searchLocationViewModel.zipCode}"
+            android:textSize="18sp"
+            android:visibility="@{searchLocationViewModel.showByZipCodeOptions}" />
+
+        <!--        Search by ZipCode ,{country code} -->
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/search_location_background_edit_text"
+            android:hint="Country code"
+            android:inputType="textCapCharacters"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="@={searchLocationViewModel.zCountryCode}"
+            android:textSize="18sp"
+            android:visibility="@{searchLocationViewModel.showByZipCodeOptions}" />
+
         <Button
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"

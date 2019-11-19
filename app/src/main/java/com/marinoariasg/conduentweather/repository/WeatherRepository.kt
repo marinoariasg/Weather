@@ -59,4 +59,26 @@ class WeatherRepository {
         }
         return result
     }
+
+    suspend fun cityByZipCode(zipCode: String, countryCode: String, units: String? = null): WeatherData {
+
+        // Enforce this: zip={zip code},{country code} for weather api
+        val zipCodeAndCountryCode = when (countryCode) {
+            "" -> zipCode
+            else -> "${zipCode},${countryCode}"
+        }
+
+        val getCityByZipCode = OpenWeatherApi.retrofitService.getByZipCode(
+            zipCode = zipCodeAndCountryCode, units = units
+        )
+        // Initialize with default values
+        var result = WeatherData()
+        try {
+            result = getCityByZipCode.await()
+            Timber.i("$result")
+        } catch (t: Throwable) {
+            Timber.e("Failure: ${t.message}")
+        }
+        return result
+    }
 }

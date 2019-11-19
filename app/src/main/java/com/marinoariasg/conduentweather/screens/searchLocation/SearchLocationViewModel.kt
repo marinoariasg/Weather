@@ -48,6 +48,7 @@ class SearchLocationViewModel(private val _unitsFormat: String, application: App
             _showByCityNameOptions.value -> getDataByCityName()
             _showByCityIdOptions.value -> getDataByCityId()
             _showByLatAndLonOptions.value -> getDataByLatAndLon()
+            _showByZipCodeOptions.value -> getDataByZipCode()
         }
 
     }
@@ -87,6 +88,18 @@ class SearchLocationViewModel(private val _unitsFormat: String, application: App
         }
     }
 
+    private fun getDataByZipCode() {
+        // Ensure that text is not empty
+
+            Timber.i("By ZipCode")
+            viewModelScope.launch {
+                _response.value = weatherRepository.cityByZipCode(
+                    zipCode = zipCode, countryCode = zCountryCode, units = "metric"
+                )
+            }
+
+    }
+
     // By City Name
     var cityName: String = ""
     var countryCode: String = ""
@@ -117,7 +130,7 @@ class SearchLocationViewModel(private val _unitsFormat: String, application: App
         _showByCityIdOptions.value = GONE
     }
 
-    // By lat lon
+    // By lat lon *************************
     var lat: String = ""
     var lon: String = ""
     // Internal
@@ -133,6 +146,21 @@ class SearchLocationViewModel(private val _unitsFormat: String, application: App
         _showByLatAndLonOptions.value = GONE
     }
 
+    // By ZipCode ******************************
+    var zipCode: String = ""
+    var zCountryCode: String = ""
+    private var _showByZipCodeOptions = MutableLiveData<Int>(GONE)
+    val showByZipCodeOptions: LiveData<Int>
+        get() = _showByZipCodeOptions
+
+    private fun byZipCodeOptionsVisible() {
+        _showByZipCodeOptions.value = VISIBLE
+    }
+
+    private fun byZipCodeOptionsGone() {
+        _showByZipCodeOptions.value = GONE
+    }
+
 
     /** Radio buttons options **/
     fun onSetByCityName() {
@@ -140,6 +168,7 @@ class SearchLocationViewModel(private val _unitsFormat: String, application: App
         byCityNameOptionsVisible()
         byCityIdOptionsGone()
         byLatAndLonOptionGone()
+        byZipCodeOptionsGone()
         buttonVisible()
     }
 
@@ -147,6 +176,7 @@ class SearchLocationViewModel(private val _unitsFormat: String, application: App
         Timber.i("By City ID")
         byCityNameOptionsGone()
         byLatAndLonOptionGone()
+        byZipCodeOptionsGone()
         byCityIdOptionsVisible()
         buttonVisible()
     }
@@ -155,6 +185,7 @@ class SearchLocationViewModel(private val _unitsFormat: String, application: App
         Timber.i("By lat, lon")
         byCityNameOptionsGone()
         byCityIdOptionsGone()
+        byZipCodeOptionsGone()
         byLatAndLonOptionsVisible()
         buttonVisible()
 
@@ -162,6 +193,11 @@ class SearchLocationViewModel(private val _unitsFormat: String, application: App
 
     fun onSetByZipCode() {
         Timber.i("By ZipCode")
+        byCityNameOptionsGone()
+        byCityIdOptionsGone()
+        byLatAndLonOptionGone()
+        byZipCodeOptionsVisible()
+        buttonVisible()
     }
 
 
