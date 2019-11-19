@@ -16,7 +16,7 @@ import timber.log.Timber
 const val GONE: Int = 8
 const val VISIBLE: Int = 0
 
-class SearchLocationViewModel(private val _unitsFormat: String, application: Application) :
+class SearchLocationViewModel(private val _unitsFormat: String = "metric", application: Application) :
     AndroidViewModel(application) {
 
     private val _response = MutableLiveData<WeatherData>()
@@ -30,7 +30,14 @@ class SearchLocationViewModel(private val _unitsFormat: String, application: App
 
     private val weatherRepository: WeatherRepository = WeatherRepository()
 
-    // TODO: Validations
+    // By City Name
+    val byCityName = SearchByCityName(units = _unitsFormat)
+    // By City Id
+    val byCityId = SearchByCityId(units = _unitsFormat)
+    // By lat lon
+    val byLatAndLon = SearchByLatAndLon(units = _unitsFormat)
+    // By ZipCode
+    val byZipCode = SearchByZipCode(units = _unitsFormat)
 
     // Button Visibility and options
     // TODO: Change for buttonVisibility
@@ -45,158 +52,81 @@ class SearchLocationViewModel(private val _unitsFormat: String, application: App
 
     fun onSearch() {
         when (VISIBLE) {
-            _showByCityNameOptions.value -> getDataByCityName()
-            _showByCityIdOptions.value -> getDataByCityId()
-            _showByLatAndLonOptions.value -> getDataByLatAndLon()
-            _showByZipCodeOptions.value -> getDataByZipCode()
+            byCityName.visibility.value -> getDataByCityName()
+            byCityId.visibility.value -> getDataByCityId()
+            byLatAndLon.visibility.value -> getDataByLatAndLon()
+            byZipCode.visibility.value -> getDataByZipCode()
         }
 
     }
 
     private fun getDataByCityName() {
-        Timber.i("By City name")
         viewModelScope.launch {
-            _response.value = weatherRepository.cityNameData(
-                cityName = cityName,
-                countryCode = countryCode,
-                units = "metric"
-            )
+            _response.value = byCityName.getDataFromRepository(weatherRepository)
         }
     }
 
     private fun getDataByCityId() {
         // Ensure that text is not empty
-        if (cityId != "") {
-            Timber.i("By City Id")
+        if (byCityId.cityId != "") {
             viewModelScope.launch {
-                _response.value = weatherRepository.cityByIdData(
-                    cityId = cityId.toInt(), units = "metric"
-                )
+                _response.value = byCityId.getDataFromRepository(weatherRepository)
             }
         }
     }
 
     private fun getDataByLatAndLon() {
-        Timber.i("By City lat and lon")
         // Ensure that text is not empty
-        if (lat != "" && lon != "") {
+        if (byLatAndLon.latitude != "" && byLatAndLon.longitude != "") {
             viewModelScope.launch {
-                _response.value = weatherRepository.cityByLatAndLon(
-                    lat = lat.toDouble(), lon = lon.toDouble(), units = "metric"
-                )
+                _response.value = byLatAndLon.getDataFromRepository(weatherRepository)
             }
         }
     }
 
     private fun getDataByZipCode() {
-        // Ensure that text is not empty
+        viewModelScope.launch {
+            _response.value = byZipCode.getDataFromRepository(weatherRepository)
+        }
 
-            Timber.i("By ZipCode")
-            viewModelScope.launch {
-                _response.value = weatherRepository.cityByZipCode(
-                    zipCode = zipCode, countryCode = zCountryCode, units = "metric"
-                )
-            }
-
-    }
-
-    // By City Name
-    var cityName: String = ""
-    var countryCode: String = ""
-    private var _showByCityNameOptions = MutableLiveData<Int>(GONE)
-    val showByCityNameOptions: LiveData<Int>
-        get() = _showByCityNameOptions
-
-    private fun byCityNameOptionsVisible() {
-        _showByCityNameOptions.value =
-            VISIBLE
-    }
-
-    private fun byCityNameOptionsGone() {
-        _showByCityNameOptions.value = GONE
-    }
-
-    // By City Id
-    var cityId: String = ""
-    private var _showByCityIdOptions = MutableLiveData<Int>(GONE)
-    val showByCityIdOptions: LiveData<Int>
-        get() = _showByCityIdOptions
-
-    private fun byCityIdOptionsVisible() {
-        _showByCityIdOptions.value = VISIBLE
-    }
-
-    private fun byCityIdOptionsGone() {
-        _showByCityIdOptions.value = GONE
-    }
-
-    // By lat lon *************************
-    var lat: String = ""
-    var lon: String = ""
-    // Internal
-    private var _showByLatAndLonOptions = MutableLiveData<Int>(GONE)
-    val showByLatAndLonOptions: LiveData<Int>
-        get() = _showByLatAndLonOptions
-
-    private fun byLatAndLonOptionsVisible() {
-        _showByLatAndLonOptions.value = VISIBLE
-    }
-
-    private fun byLatAndLonOptionGone() {
-        _showByLatAndLonOptions.value = GONE
-    }
-
-    // By ZipCode ******************************
-    var zipCode: String = ""
-    var zCountryCode: String = ""
-    private var _showByZipCodeOptions = MutableLiveData<Int>(GONE)
-    val showByZipCodeOptions: LiveData<Int>
-        get() = _showByZipCodeOptions
-
-    private fun byZipCodeOptionsVisible() {
-        _showByZipCodeOptions.value = VISIBLE
-    }
-
-    private fun byZipCodeOptionsGone() {
-        _showByZipCodeOptions.value = GONE
     }
 
 
     /** Radio buttons options **/
     fun onSetByCityName() {
-        Timber.i("By City name")
-        byCityNameOptionsVisible()
-        byCityIdOptionsGone()
-        byLatAndLonOptionGone()
-        byZipCodeOptionsGone()
+        Timber.i("Radio button: Search by City name")
+        byCityName.visible()
+        byCityId.gone()
+        byLatAndLon.gone()
+        byZipCode.gone()
         buttonVisible()
     }
 
     fun onSetByCityId() {
-        Timber.i("By City ID")
-        byCityNameOptionsGone()
-        byLatAndLonOptionGone()
-        byZipCodeOptionsGone()
-        byCityIdOptionsVisible()
+        Timber.i("Radio button: Search by City ID")
+        byCityName.gone()
+        byLatAndLon.gone()
+        byZipCode.gone()
+        byCityId.visible()
         buttonVisible()
     }
 
     fun onSetByLatAndLon() {
-        Timber.i("By lat, lon")
-        byCityNameOptionsGone()
-        byCityIdOptionsGone()
-        byZipCodeOptionsGone()
-        byLatAndLonOptionsVisible()
+        Timber.i("Radio button: Search by lat, lon")
+        byCityName.gone()
+        byCityId.gone()
+        byZipCode.gone()
+        byLatAndLon.visible()
         buttonVisible()
 
     }
 
     fun onSetByZipCode() {
-        Timber.i("By ZipCode")
-        byCityNameOptionsGone()
-        byCityIdOptionsGone()
-        byLatAndLonOptionGone()
-        byZipCodeOptionsVisible()
+        Timber.i("Radio button: Search by ZipCode")
+        byCityName.gone()
+        byCityId.gone()
+        byLatAndLon.gone()
+        byZipCode.visible()
         buttonVisible()
     }
 

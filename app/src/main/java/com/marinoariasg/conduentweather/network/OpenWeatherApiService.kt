@@ -19,7 +19,6 @@ private val moshi = Moshi.Builder()
     .build()
 
 
-
 interface OpenWeatherApiService {
     /*
     By city name

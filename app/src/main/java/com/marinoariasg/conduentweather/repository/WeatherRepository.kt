@@ -2,79 +2,60 @@ package com.marinoariasg.conduentweather.repository
 
 import com.marinoariasg.conduentweather.network.OpenWeatherApi
 import com.marinoariasg.conduentweather.network.WeatherData
+import kotlinx.coroutines.Deferred
 import timber.log.Timber
 
 class WeatherRepository {
 
-    // TODO: change the try catch to one single fun
-
-    suspend fun cityNameData(cityName: String, countryCode: String, units: String? = null)
+    suspend fun weatherByCityName(cityName: String, countryCode: String, units: String? = null)
             : WeatherData {
-        // Enforce this: q={city name},{country code} for weather api
-        val cityNameAndCountryCode = when (countryCode) {
-            "" -> cityName
-            else -> "${cityName},${countryCode}"
-        }
 
-        var getByCityName = OpenWeatherApi.retrofitService.getByCityName(
+        // Enforce this: q={city name},{country code} for weather api
+        val cityNameAndCountryCode = addParametersWithComa(cityName, countryCode)
+
+        val getByCityName = OpenWeatherApi.retrofitService.getByCityName(
             queryFilter = cityNameAndCountryCode, units = units
         )
-        var result = WeatherData()
-        try {
-            result = getByCityName.await()
-            Timber.i("$result")
-        } catch (t: Throwable) {
-            Timber.e("Failure: ${t.message}")
-        }
-        return result
+        return tryToGetWeatherData(getByCityName)
     }
 
-    suspend fun cityByIdData(cityId: Int, units: String? = null): WeatherData {
-
-        var getByCityId = OpenWeatherApi.retrofitService.getByCityId(
+    suspend fun weatherByCityId(cityId: Int, units: String? = null): WeatherData {
+        val getByCityId = OpenWeatherApi.retrofitService.getByCityId(
             cityId = cityId, units = units
         )
-        var result = WeatherData()
-        try {
-            result = getByCityId.await()
-            Timber.i("$result")
-        } catch (t: Throwable) {
-            Timber.e("Failure: ${t.message}")
-        }
-        return result
+        return tryToGetWeatherData(getByCityId)
     }
 
-    suspend fun cityByLatAndLon(lat: Double, lon: Double, units: String? = null): WeatherData {
-        val getCityByLatAndLon =
-            OpenWeatherApi.retrofitService.getByGeographicCoordinates(
-                latitude = lat, longitude = lon, units = units
-            )
-        // Initialize with default values
-        var result = WeatherData()
-        try {
-            result = getCityByLatAndLon.await()
-            Timber.i("$result")
-        } catch (t: Throwable) {
-            Timber.e("Failure: ${t.message}")
-        }
-        return result
+    suspend fun weatherByLatAndLon(lat: Double, lon: Double, units: String? = null): WeatherData {
+        val getCityByLatAndLon = OpenWeatherApi.retrofitService
+            .getByGeographicCoordinates(latitude = lat, longitude = lon, units = units)
+        return tryToGetWeatherData(getCityByLatAndLon)
     }
 
-    suspend fun cityByZipCode(zipCode: String, countryCode: String, units: String? = null): WeatherData {
+    suspend fun weatherByZipCode(zipCode: String, countryCode: String, units: String? = null):
+            WeatherData {
 
         // Enforce this: zip={zip code},{country code} for weather api
-        val zipCodeAndCountryCode = when (countryCode) {
-            "" -> zipCode
-            else -> "${zipCode},${countryCode}"
-        }
+        val zipCodeAndCountryCode = addParametersWithComa(zipCode, countryCode)
 
         val getCityByZipCode = OpenWeatherApi.retrofitService.getByZipCode(
-            zipCode = zipCodeAndCountryCode, units = units
-        )
+            zipCode = zipCodeAndCountryCode, units = units)
+        return tryToGetWeatherData(getCityByZipCode)
+    }
+
+    // Second parameter can be empty
+    private fun addParametersWithComa(firstParameter: String, secondParameter: String): String {
+        return when (secondParameter) {
+            "" -> firstParameter
+            else -> "${firstParameter},${secondParameter}"
+        }
+    }
+
+    private suspend fun tryToGetWeatherData(deferredWeatherData: Deferred<WeatherData>): WeatherData {
         // Initialize with default values
         var result = WeatherData()
         try {
-            result = getCityByZipCode.await()
+            result = deferredWeatherData.await()
             Timber.i("$result")
         } catch (t: Throwable) {
             Timber.e("Failure: ${t.message}")

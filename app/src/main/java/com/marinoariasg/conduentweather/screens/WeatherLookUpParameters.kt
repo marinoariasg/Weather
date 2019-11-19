@@ -10,5 +10,5 @@ Temperature in Kelvin is used by default, no need to use units parameter in API 
 data class WeatherLookUpParameters(
     val cityName: String = "Havant",
     val countryCode: String = "",
-    val units: String = "Kelvin"
+    val units: String = "metric"
 )

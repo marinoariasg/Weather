@@ -27,7 +27,7 @@ class CurrentLocationViewModel(var weatherLookUpParameters: WeatherLookUpParamet
 
     fun getWeatherDataByCityName() {
         viewModelScope.launch {
-            _weatherData.value = weatherRepository.cityNameData(
+            _weatherData.value = weatherRepository.weatherByCityName(
                 cityName = weatherLookUpParameters.cityName,
                 countryCode = weatherLookUpParameters.countryCode,
                 units = weatherLookUpParameters.units
