@@ -1,4 +1,4 @@
-package com.marinoariasg.conduentweather.screens.searchLocation
+package com.marinoariasg.conduentweather.screens.searchWeather
 
 import com.marinoariasg.conduentweather.network.WeatherData
 import com.marinoariasg.conduentweather.repository.WeatherRepository

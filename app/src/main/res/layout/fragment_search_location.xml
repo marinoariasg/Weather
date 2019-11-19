@@ -2,13 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".screens.searchLocation.SearchLocationFragment">
+    tools:context=".screens.searchWeather.SearchWeatherFragment">
 
     <data>
 
         <variable
-            name="searchLocationViewModel"
-            type="com.marinoariasg.conduentweather.screens.searchLocation.SearchLocationViewModel" />
+            name="searchWeatherViewModel"
+            type="com.marinoariasg.conduentweather.screens.searchWeather.SearchWeatherViewModel" />
     </data>
 
     <LinearLayout
@@ -38,26 +38,26 @@
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> searchLocationViewModel.onSetByCityName()}"
+                android:onClick="@{() -> searchWeatherViewModel.onSetByCityName()}"
 
                 android:text=" Name" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> searchLocationViewModel.onSetByCityId()}"
+                android:onClick="@{() -> searchWeatherViewModel.onSetByCityId()}"
                 android:text=" ID" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> searchLocationViewModel.onSetByLatAndLon()}"
+                android:onClick="@{() -> searchWeatherViewModel.onSetByLatAndLon()}"
                 android:text=" Geographic Coordinates (Lat, Lon)" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> searchLocationViewModel.onSetByZipCode()}"
+                android:onClick="@{() -> searchWeatherViewModel.onSetByZipCode()}"
                 android:text=" ZipCode" />
 
         </RadioGroup>
@@ -74,9 +74,9 @@
             android:inputType="text"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:text="@={searchLocationViewModel.byCityName.cityName}"
+            android:text="@={searchWeatherViewModel.byCityName.cityName}"
             android:textSize="18sp"
-            android:visibility="@{searchLocationViewModel.byCityName.visibility}" />
+            android:visibility="@{searchWeatherViewModel.byCityName.visibility}" />
 
         <!--        country code-->
         <com.google.android.material.textfield.TextInputEditText
@@ -90,9 +90,9 @@
             android:inputType="text"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:text="@={searchLocationViewModel.byCityName.countryCode}"
+            android:text="@={searchWeatherViewModel.byCityName.countryCode}"
             android:textSize="18sp"
-            android:visibility="@{searchLocationViewModel.byCityName.visibility}" />
+            android:visibility="@{searchWeatherViewModel.byCityName.visibility}" />
 
         <!--        search by Id-->
         <com.google.android.material.textfield.TextInputEditText
@@ -106,9 +106,9 @@
             android:inputType="number"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:text="@={searchLocationViewModel.byCityId.cityId}"
+            android:text="@={searchWeatherViewModel.byCityId.cityId}"
             android:textSize="18sp"
-            android:visibility="@{searchLocationViewModel.byCityId.visibility}" />
+            android:visibility="@{searchWeatherViewModel.byCityId.visibility}" />
 
         <!--        search by Geographic coordinates (lat)-->
         <!--        accepts negative an positive double-->
@@ -123,9 +123,9 @@
             android:inputType="numberDecimal|numberSigned"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:text="@={searchLocationViewModel.byLatAndLon.latitude}"
+            android:text="@={searchWeatherViewModel.byLatAndLon.latitude}"
             android:textSize="18sp"
-            android:visibility="@{searchLocationViewModel.byLatAndLon.visibility}" />
+            android:visibility="@{searchWeatherViewModel.byLatAndLon.visibility}" />
 
         <!--        search by Geographic coordinates (lon)-->
         <!--        accepts negative an positive double-->
@@ -140,9 +140,9 @@
             android:inputType="numberDecimal|numberSigned"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:text="@={searchLocationViewModel.byLatAndLon.longitude}"
+            android:text="@={searchWeatherViewModel.byLatAndLon.longitude}"
             android:textSize="18sp"
-            android:visibility="@{searchLocationViewModel.byLatAndLon.visibility}" />
+            android:visibility="@{searchWeatherViewModel.byLatAndLon.visibility}" />
 
         <!--        Search by ZipCode {zip code}, -->
         <com.google.android.material.textfield.TextInputEditText
@@ -156,9 +156,9 @@
             android:inputType="number"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:text="@={searchLocationViewModel.byZipCode.zipCode}"
+            android:text="@={searchWeatherViewModel.byZipCode.zipCode}"
             android:textSize="18sp"
-            android:visibility="@{searchLocationViewModel.byZipCode.visibility}" />
+            android:visibility="@{searchWeatherViewModel.byZipCode.visibility}" />
 
         <!--        Search by ZipCode ,{country code} -->
         <com.google.android.material.textfield.TextInputEditText
@@ -172,9 +172,9 @@
             android:inputType="textCapCharacters"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:text="@={searchLocationViewModel.byZipCode.countryCode}"
+            android:text="@={searchWeatherViewModel.byZipCode.countryCode}"
             android:textSize="18sp"
-            android:visibility="@{searchLocationViewModel.byZipCode.visibility}" />
+            android:visibility="@{searchWeatherViewModel.byZipCode.visibility}" />
 
         <Button
             style="?android:attr/borderlessButtonStyle"
@@ -185,11 +185,11 @@
             android:layout_marginTop="16dp"
             android:layout_marginRight="16dp"
             android:background="@drawable/search_location_background_edit_text"
-            android:onClick="@{() -> searchLocationViewModel.onSearch()}"
+            android:onClick="@{() -> searchWeatherViewModel.onSearch()}"
             android:text="Search"
             android:textAllCaps="false"
             android:textColor="@color/colorPrimaryDark"
-            android:visibility="@{searchLocationViewModel.showButton}" />
+            android:visibility="@{searchWeatherViewModel.buttonVisibility}" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -209,13 +209,13 @@
                     android:fontFamily="@font/roboto_light"
                     android:textColor="@android:color/white"
                     android:textSize="30sp"
-                    app:temperature="@{searchLocationViewModel.response}"
+                    app:temperature="@{searchWeatherViewModel.weatherResponse}"
                     tools:text="15°" />
 
                 <ImageView
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    app:weatherIcon="@{searchLocationViewModel.response}" />
+                    app:weatherIcon="@{searchWeatherViewModel.weatherResponse}" />
 
             </LinearLayout>
 
@@ -238,7 +238,7 @@
                     android:fontFamily="@font/homenaje"
                     android:textColor="@android:color/white"
                     android:textSize="14sp"
-                    app:cityName="@{searchLocationViewModel.response}"
+                    app:cityName="@{searchWeatherViewModel.weatherResponse}"
                     tools:text="Crayford" />
 
                 <TextView
@@ -247,7 +247,7 @@
                     android:fontFamily="@font/homenaje"
                     android:textColor="@android:color/white"
                     android:textSize="14sp"
-                    app:timeOfCalculation="@{searchLocationViewModel.response}"
+                    app:timeOfCalculation="@{searchWeatherViewModel.weatherResponse}"
                     tools:text="01/08 6:13 am" />
 
             </LinearLayout>

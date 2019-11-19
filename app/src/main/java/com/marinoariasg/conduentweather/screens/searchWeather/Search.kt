@@ -1,4 +1,4 @@
-package com.marinoariasg.conduentweather.screens.searchLocation
+package com.marinoariasg.conduentweather.screens.searchWeather
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

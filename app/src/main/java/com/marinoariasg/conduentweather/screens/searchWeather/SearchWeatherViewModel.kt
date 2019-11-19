@@ -1,4 +1,4 @@
-package com.marinoariasg.conduentweather.screens.searchLocation
+package com.marinoariasg.conduentweather.screens.searchWeather
 
 
 import android.app.Application
@@ -16,49 +16,35 @@ import timber.log.Timber
 const val GONE: Int = 8
 const val VISIBLE: Int = 0
 
-class SearchLocationViewModel(private val _unitsFormat: String = "metric", application: Application) :
+class SearchWeatherViewModel(private val _unitsFormat: String = "metric", application: Application) :
     AndroidViewModel(application) {
 
-    private val _response = MutableLiveData<WeatherData>()
+    private val _weatherResponse = MutableLiveData<WeatherData>()
 
     // The external immutable LiveData, The xml binding is observing this val
-    val response: LiveData<WeatherData>
-        get() = _response
+    val weatherResponse: LiveData<WeatherData>
+        get() = _weatherResponse
 
-    private var vieModelJob = Job()
-    private val viewModelScope = CoroutineScope(vieModelJob + Dispatchers.Main)
+    private var viewModelJob = Job()
+    private val viewModelScope = CoroutineScope(viewModelJob + Dispatchers.Main)
 
     private val weatherRepository: WeatherRepository = WeatherRepository()
 
-    // By City Name
     val byCityName = SearchByCityName(units = _unitsFormat)
-    // By City Id
+
     val byCityId = SearchByCityId(units = _unitsFormat)
-    // By lat lon
+
     val byLatAndLon = SearchByLatAndLon(units = _unitsFormat)
-    // By ZipCode
+
     val byZipCode = SearchByZipCode(units = _unitsFormat)
 
     // Button Visibility and options
-    // TODO: Change for buttonVisibility
-    private var _showButton = MutableLiveData<Int>(GONE)
-    val showButton: LiveData<Int>
-        get() = _showButton
+    private var _buttonVisibility = MutableLiveData<Int>(GONE)
+    val buttonVisibility: LiveData<Int>
+        get() = _buttonVisibility
 
-    /** **/
     private fun buttonVisible() {
-        _showButton.value = VISIBLE
-    }
-
-    fun onSearch() {
-        viewModelScope.launch {
-            when (VISIBLE) {
-                byCityName.visibility.value -> _response.value = byCityName.getDataFromRepository(weatherRepository)
-                byCityId.visibility.value -> _response.value = byCityId.getDataFromRepository(weatherRepository)
-                byLatAndLon.visibility.value -> _response.value = byLatAndLon.getDataFromRepository(weatherRepository)
-                byZipCode.visibility.value -> _response.value = byZipCode.getDataFromRepository(weatherRepository)
-            }
-        }
+        _buttonVisibility.value = VISIBLE
     }
 
     /** Radio buttons options **/
@@ -87,7 +73,6 @@ class SearchLocationViewModel(private val _unitsFormat: String = "metric", appli
         byZipCode.gone()
         byLatAndLon.visible()
         buttonVisible()
-
     }
 
     fun onSetByZipCode() {
@@ -99,11 +84,26 @@ class SearchLocationViewModel(private val _unitsFormat: String = "metric", appli
         buttonVisible()
     }
 
+    // Button can only call this when is visible (after a radio button have been selected)
+    fun onSearch() {
+        viewModelScope.launch {
+            when (VISIBLE) {
+                byCityName.visibility.value -> updateWeatherResponse(byCityName)
+                byCityId.visibility.value -> updateWeatherResponse(byCityId)
+                byLatAndLon.visibility.value -> updateWeatherResponse(byLatAndLon)
+                byZipCode.visibility.value -> updateWeatherResponse(byZipCode)
+            }
+        }
+    }
+
+    // Polymorphism ;)
+    private suspend fun updateWeatherResponse(searchObject: Search){
+        _weatherResponse.value = searchObject.getDataFromRepository(weatherRepository)
+    }
 
     override fun onCleared() {
         super.onCleared()
-        vieModelJob.cancel()
+        viewModelJob.cancel()
     }
-
 
 }

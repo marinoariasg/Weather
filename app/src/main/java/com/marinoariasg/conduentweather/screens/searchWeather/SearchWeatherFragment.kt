@@ -1,4 +1,4 @@
-package com.marinoariasg.conduentweather.screens.searchLocation
+package com.marinoariasg.conduentweather.screens.searchWeather
 
 
 import android.os.Bundle
@@ -6,18 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import com.marinoariasg.conduentweather.R
 import com.marinoariasg.conduentweather.databinding.FragmentSearchLocationBinding
-import kotlinx.android.synthetic.main.fragment_search_location.*
 
 /**
  * A simple [Fragment] subclass.
  */
-class SearchLocationFragment : Fragment() {
+class SearchWeatherFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,18 +32,18 @@ class SearchLocationFragment : Fragment() {
 
         // TODO: get the unitsFormat from SharedPreferences
         //Create an instance of the ViewModelFactory
-        val searchLocationViewModelFactory =
-            SearchLocationViewModelFactory(
+        val searchWeatherViewModelFactory =
+            SearchWeatherViewModelFactory(
                 unitsFormat = "metric", application = application
             )
 
         // Get the ViewModel associated with this fragment.
-        val searchLocationViewModel = ViewModelProviders.of(
-            this, searchLocationViewModelFactory
-        ).get(SearchLocationViewModel::class.java)
+        val searchWeatherViewModel = ViewModelProviders.of(
+            this, searchWeatherViewModelFactory
+        ).get(SearchWeatherViewModel::class.java)
 
         // Give the binding access to the searchLocationViewModel
-        binding.searchLocationViewModel = searchLocationViewModel
+        binding.searchWeatherViewModel = searchWeatherViewModel
 
         binding.lifecycleOwner = this
 
