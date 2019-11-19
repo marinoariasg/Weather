@@ -30,25 +30,24 @@ class SearchLocationViewModel(private val _unitsFormat: String, application: App
 
     private val weatherRepository: WeatherRepository = WeatherRepository()
 
-   // TODO: Validations
+    // TODO: Validations
 
     // Button Visibility and options
     // TODO: Change for buttonVisibility
     private var _showButton = MutableLiveData<Int>(GONE)
     val showButton: LiveData<Int>
         get() = _showButton
+
     /** **/
     private fun buttonVisible() {
         _showButton.value = VISIBLE
     }
-    /**  **/
-    private fun buttonGone() {
-        _showButton.value = GONE
-    }
+
     fun onSearch() {
         when (VISIBLE) {
             _showByCityNameOptions.value -> getDataByCityName()
             _showByCityIdOptions.value -> getDataByCityId()
+            _showByLatAndLonOptions.value -> getDataByLatAndLon()
         }
 
     }
@@ -65,11 +64,24 @@ class SearchLocationViewModel(private val _unitsFormat: String, application: App
     }
 
     private fun getDataByCityId() {
+        // Ensure that text is not empty
         if (cityId != "") {
             Timber.i("By City Id")
             viewModelScope.launch {
                 _response.value = weatherRepository.cityByIdData(
                     cityId = cityId.toInt(), units = "metric"
+                )
+            }
+        }
+    }
+
+    private fun getDataByLatAndLon() {
+        Timber.i("By City lat and lon")
+        // Ensure that text is not empty
+        if (lat != "" && lon != "") {
+            viewModelScope.launch {
+                _response.value = weatherRepository.cityByLatAndLon(
+                    lat = lat.toDouble(), lon = lon.toDouble(), units = "metric"
                 )
             }
         }
@@ -81,12 +93,12 @@ class SearchLocationViewModel(private val _unitsFormat: String, application: App
     private var _showByCityNameOptions = MutableLiveData<Int>(GONE)
     val showByCityNameOptions: LiveData<Int>
         get() = _showByCityNameOptions
-    /** **/
+
     private fun byCityNameOptionsVisible() {
         _showByCityNameOptions.value =
             VISIBLE
     }
-    /**  **/
+
     private fun byCityNameOptionsGone() {
         _showByCityNameOptions.value = GONE
     }
@@ -96,13 +108,29 @@ class SearchLocationViewModel(private val _unitsFormat: String, application: App
     private var _showByCityIdOptions = MutableLiveData<Int>(GONE)
     val showByCityIdOptions: LiveData<Int>
         get() = _showByCityIdOptions
-    /**  **/
-    private fun byCityIdOptionsVisible(){
+
+    private fun byCityIdOptionsVisible() {
         _showByCityIdOptions.value = VISIBLE
     }
-    /**  **/
-    private fun byCityIdOptionsGone(){
+
+    private fun byCityIdOptionsGone() {
         _showByCityIdOptions.value = GONE
+    }
+
+    // By lat lon
+    var lat: String = ""
+    var lon: String = ""
+    // Internal
+    private var _showByLatAndLonOptions = MutableLiveData<Int>(GONE)
+    val showByLatAndLonOptions: LiveData<Int>
+        get() = _showByLatAndLonOptions
+
+    private fun byLatAndLonOptionsVisible() {
+        _showByLatAndLonOptions.value = VISIBLE
+    }
+
+    private fun byLatAndLonOptionGone() {
+        _showByLatAndLonOptions.value = GONE
     }
 
 
@@ -111,18 +139,24 @@ class SearchLocationViewModel(private val _unitsFormat: String, application: App
         Timber.i("By City name")
         byCityNameOptionsVisible()
         byCityIdOptionsGone()
+        byLatAndLonOptionGone()
         buttonVisible()
     }
 
     fun onSetByCityId() {
         Timber.i("By City ID")
         byCityNameOptionsGone()
+        byLatAndLonOptionGone()
         byCityIdOptionsVisible()
         buttonVisible()
     }
 
     fun onSetByLatAndLon() {
         Timber.i("By lat, lon")
+        byCityNameOptionsGone()
+        byCityIdOptionsGone()
+        byLatAndLonOptionsVisible()
+        buttonVisible()
 
     }
 
@@ -135,7 +169,6 @@ class SearchLocationViewModel(private val _unitsFormat: String, application: App
         super.onCleared()
         vieModelJob.cancel()
     }
-
 
 
 }

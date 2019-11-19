@@ -57,8 +57,8 @@ interface OpenWeatherApiService {
      */
     @GET("data/2.5/weather/")
     fun getByGeographicCoordinates(
-        @Query("lat") latitude: Int,
-        @Query("lon") longitude: Int,
+        @Query("lat") latitude: Double,
+        @Query("lon") longitude: Double,
         @Query("units") units: String?,
         // API_key as default parameter
         @Query("APPID") apiKey: String = API_KEY

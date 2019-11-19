@@ -78,3 +78,17 @@ fun TextView.setVariousProperties(item: WeatherData?) {
                 "Sunset:          ${convertLongToDateStringJustTime(item.sys?.sunset)}"
     }
 }
+
+@BindingAdapter("latitude")
+fun TextView.setLatitude(item: Double?) {
+    item?.let {
+        text = item.toString()
+    }
+}
+
+@BindingAdapter("longitude")
+fun TextView.setLongitude(item: Double?) {
+    item?.let {
+        text = item.toString()
+    }
+}

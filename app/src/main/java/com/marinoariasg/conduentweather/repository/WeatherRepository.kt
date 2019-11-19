@@ -43,4 +43,20 @@ class WeatherRepository {
         }
         return result
     }
+
+    suspend fun cityByLatAndLon(lat: Double, lon: Double, units: String? = null): WeatherData {
+        val getCityByLatAndLon =
+            OpenWeatherApi.retrofitService.getByGeographicCoordinates(
+                latitude = lat, longitude = lon, units = units
+            )
+        // Initialize with default values
+        var result = WeatherData()
+        try {
+            result = getCityByLatAndLon.await()
+            Timber.i("$result")
+        } catch (t: Throwable) {
+            Timber.e("Failure: ${t.message}")
+        }
+        return result
+    }
 }

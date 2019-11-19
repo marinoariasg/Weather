@@ -29,6 +29,7 @@
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
             android:orientation="vertical"
             android:theme="@style/RadioButtonStyle">
 
@@ -37,13 +38,13 @@
                 android:layout_height="wrap_content"
                 android:onClick="@{() -> searchLocationViewModel.onSetByCityName()}"
 
-                android:text=" City name" />
+                android:text=" Name" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="@{() -> searchLocationViewModel.onSetByCityId()}"
-                android:text=" City ID"/>
+                android:text=" ID" />
 
             <RadioButton
                 android:layout_width="wrap_content"
@@ -55,7 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="@{() -> searchLocationViewModel.onSetByZipCode()}"
-                android:text=" ZipCode"/>
+                android:text=" ZipCode" />
 
         </RadioGroup>
 
@@ -71,11 +72,11 @@
             android:inputType="text"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:textSize="18sp"
             android:text="@={searchLocationViewModel.cityName}"
+            android:textSize="18sp"
             android:visibility="@{searchLocationViewModel.showByCityNameOptions}" />
 
-<!--        country code-->
+        <!--        country code-->
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="30dp"
@@ -87,8 +88,8 @@
             android:inputType="text"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:textSize="18sp"
             android:text="@={searchLocationViewModel.countryCode}"
+            android:textSize="18sp"
             android:visibility="@{searchLocationViewModel.showByCityNameOptions}" />
 
         <!--        search by Id-->
@@ -103,9 +104,41 @@
             android:inputType="number"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:textSize="18sp"
             android:text="@={searchLocationViewModel.cityId}"
+            android:textSize="18sp"
             android:visibility="@{searchLocationViewModel.showByCityIdOptions}" />
+
+        <!--        search by Geographic coordinates (lat)-->
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="45dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/search_location_background_edit_text"
+            android:hint="Lat"
+            android:inputType="numberDecimal"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="@={searchLocationViewModel.lat}"
+            android:textSize="18sp"
+            android:visibility="@{searchLocationViewModel.showByLatAndLonOptions}" />
+
+        <!--        search by Geographic coordinates (lon)-->
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/search_location_background_edit_text"
+            android:hint="Lon"
+            android:inputType="numberDecimal"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="@={searchLocationViewModel.lon}"
+            android:textSize="18sp"
+            android:visibility="@{searchLocationViewModel.showByLatAndLonOptions}" />
 
         <Button
             style="?android:attr/borderlessButtonStyle"
@@ -116,11 +149,11 @@
             android:layout_marginTop="16dp"
             android:layout_marginRight="16dp"
             android:background="@drawable/search_location_background_edit_text"
+            android:onClick="@{() -> searchLocationViewModel.onSearch()}"
             android:text="Search"
             android:textAllCaps="false"
             android:textColor="@color/colorPrimaryDark"
-            android:onClick="@{() -> searchLocationViewModel.onSearch()}"
-            android:visibility="@{searchLocationViewModel.showButton}"/>
+            android:visibility="@{searchLocationViewModel.showButton}" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -138,9 +171,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/roboto_light"
-                    app:temperature="@{searchLocationViewModel.response}"
                     android:textColor="@android:color/white"
                     android:textSize="30sp"
+                    app:temperature="@{searchLocationViewModel.response}"
                     tools:text="15°" />
 
                 <ImageView
@@ -167,18 +200,18 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="8dp"
                     android:fontFamily="@font/homenaje"
-                    app:cityName="@{searchLocationViewModel.response}"
                     android:textColor="@android:color/white"
                     android:textSize="14sp"
+                    app:cityName="@{searchLocationViewModel.response}"
                     tools:text="Crayford" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/homenaje"
-                    app:timeOfCalculation="@{searchLocationViewModel.response}"
                     android:textColor="@android:color/white"
                     android:textSize="14sp"
+                    app:timeOfCalculation="@{searchLocationViewModel.response}"
                     tools:text="01/08 6:13 am" />
 
             </LinearLayout>
