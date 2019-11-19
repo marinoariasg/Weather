@@ -16,7 +16,10 @@ import timber.log.Timber
 const val GONE: Int = 8
 const val VISIBLE: Int = 0
 
-class SearchWeatherViewModel(private val _unitsFormat: String = "metric", application: Application) :
+class SearchWeatherViewModel(
+    private val _unitsFormat: String = "metric",
+    application: Application
+) :
     AndroidViewModel(application) {
 
     private val _weatherResponse = MutableLiveData<WeatherData>()
@@ -86,19 +89,19 @@ class SearchWeatherViewModel(private val _unitsFormat: String = "metric", applic
 
     // Button can only call this when is visible (after a radio button have been selected)
     fun onSearch() {
-        viewModelScope.launch {
-            when (VISIBLE) {
-                byCityName.visibility.value -> updateWeatherResponse(byCityName)
-                byCityId.visibility.value -> updateWeatherResponse(byCityId)
-                byLatAndLon.visibility.value -> updateWeatherResponse(byLatAndLon)
-                byZipCode.visibility.value -> updateWeatherResponse(byZipCode)
-            }
+        when (VISIBLE) {
+            byCityName.visibility.value -> updateWeatherResponse(byCityName)
+            byCityId.visibility.value -> updateWeatherResponse(byCityId)
+            byLatAndLon.visibility.value -> updateWeatherResponse(byLatAndLon)
+            byZipCode.visibility.value -> updateWeatherResponse(byZipCode)
         }
     }
 
     // Polymorphism ;)
-    private suspend fun updateWeatherResponse(searchObject: Search){
-        _weatherResponse.value = searchObject.getDataFromRepository(weatherRepository)
+    private fun updateWeatherResponse(searchObject: Search) {
+        viewModelScope.launch {
+            _weatherResponse.value = searchObject.getDataFromRepository(weatherRepository)
+        }
     }
 
     override fun onCleared() {
