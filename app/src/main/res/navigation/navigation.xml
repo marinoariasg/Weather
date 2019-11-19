@@ -7,16 +7,16 @@
 
     <fragment
         android:id="@+id/currentLocationFragment"
-        android:name="com.marinoariasg.conduentweather.currentLocation.CurrentLocationFragment"
-        android:label="fragment_current_location"
+        android:name="com.marinoariasg.conduentweather.screens.currentLocation.CurrentLocationFragment"
+        android:label="Conduent Weather"
         tools:layout="@layout/fragment_current_location" />
     <fragment
         android:id="@+id/search_location_fragment"
-        android:name="com.marinoariasg.conduentweather.searchLocation.SearchLocationFragment"
-        android:label="fragment_search_location"
+        android:name="com.marinoariasg.conduentweather.screens.searchLocation.SearchLocationFragment"
+        android:label="Search Weather by ..."
         tools:layout="@layout/fragment_search_location" />
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.marinoariasg.conduentweather.settingsFragment.SettingsFragment"
-        android:label="SettingsFragment" />
+        android:name="com.marinoariasg.conduentweather.screens.settingsFragment.SettingsFragment"
+        android:label="Settings" />
 </navigation>

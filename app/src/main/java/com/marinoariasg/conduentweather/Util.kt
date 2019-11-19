@@ -30,3 +30,12 @@ fun convertLongToDateString(unixTime: Long?): String {
         sdf.format(date)
     } else ""
 }
+
+@SuppressLint("SimpleDateFormat")
+fun convertLongToDateStringJustTime(unixTime: Long?): String {
+    val sdf = SimpleDateFormat("h:mm a")
+    return if (unixTime != null) {
+        val date = unixTime.times(1000).let { java.util.Date(it) }
+        sdf.format(date)
+    } else ""
+}

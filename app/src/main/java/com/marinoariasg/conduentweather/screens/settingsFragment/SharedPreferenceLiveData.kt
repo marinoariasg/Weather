@@ -1,4 +1,4 @@
-package com.marinoariasg.conduentweather.settingsFragment
+package com.marinoariasg.conduentweather.screens.settingsFragment
 
 import android.content.SharedPreferences
 import androidx.lifecycle.LiveData

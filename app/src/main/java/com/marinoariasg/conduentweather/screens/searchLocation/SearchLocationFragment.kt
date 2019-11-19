@@ -1,4 +1,4 @@
-package com.marinoariasg.conduentweather.searchLocation
+package com.marinoariasg.conduentweather.screens.searchLocation
 
 
 import android.os.Bundle
@@ -35,8 +35,10 @@ class SearchLocationFragment : Fragment() {
 
         // TODO: get the unitsFormat from SharedPreferences
         //Create an instance of the ViewModelFactory
-        val searchLocationViewModelFactory = SearchLocationViewModelFactory(
-            unitsFormat = "metric", application = application)
+        val searchLocationViewModelFactory =
+            SearchLocationViewModelFactory(
+                unitsFormat = "metric", application = application
+            )
 
         // Get the ViewModel associated with this fragment.
         val searchLocationViewModel = ViewModelProviders.of(

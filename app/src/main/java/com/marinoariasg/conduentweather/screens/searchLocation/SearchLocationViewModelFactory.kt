@@ -1,4 +1,4 @@
-package com.marinoariasg.conduentweather.searchLocation
+package com.marinoariasg.conduentweather.screens.searchLocation
 
 import android.app.Application
 import androidx.lifecycle.ViewModel
@@ -12,7 +12,10 @@ class SearchLocationViewModelFactory(
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(SearchLocationViewModel::class.java)) {
-            return SearchLocationViewModel(unitsFormat, application) as T
+            return SearchLocationViewModel(
+                unitsFormat,
+                application
+            ) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

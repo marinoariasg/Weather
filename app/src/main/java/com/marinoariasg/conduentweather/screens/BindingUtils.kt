@@ -1,8 +1,12 @@
-package com.marinoariasg.conduentweather
+package com.marinoariasg.conduentweather.screens
 
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import com.marinoariasg.conduentweather.R
+import com.marinoariasg.conduentweather.convertLongToDateString
+import com.marinoariasg.conduentweather.convertLongToDateStringJustTime
+import com.marinoariasg.conduentweather.formatTemperatureToString
 import com.marinoariasg.conduentweather.network.WeatherData
 
 @BindingAdapter("temperature")
@@ -67,8 +71,10 @@ fun TextView.setDescription(item: WeatherData?) {
 @BindingAdapter("variousProperties")
 fun TextView.setVariousProperties(item: WeatherData?) {
     item?.let {
-        text = "Cloudiness: ${item?.clouds?.cloudiness}%\n" +
-                "Humidity: ${item?.main?.humidity}%\n" +
-                "Wind Speed: ${item.wind?.speed} mph"
+        text = "Cloudiness:         ${item?.clouds?.cloudiness}%\n" +
+                "Humidity:             ${item?.main?.humidity}%\n" +
+                "Wind Speed: ${item.wind?.speed} mph\n" +
+                "Sunrise:         ${convertLongToDateStringJustTime(item.sys?.sunrise)}\n" +
+                "Sunset:          ${convertLongToDateStringJustTime(item.sys?.sunset)}"
     }
 }

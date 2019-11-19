@@ -1,4 +1,4 @@
-package com.marinoariasg.conduentweather.currentLocation
+package com.marinoariasg.conduentweather.screens.currentLocation
 
 
 import android.os.Bundle
@@ -13,10 +13,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
+import com.google.android.material.snackbar.Snackbar
 import com.marinoariasg.conduentweather.R
-import com.marinoariasg.conduentweather.WeatherLookUpParameters
+import com.marinoariasg.conduentweather.screens.WeatherLookUpParameters
 import com.marinoariasg.conduentweather.databinding.FragmentCurrentLocationBinding
-import com.marinoariasg.conduentweather.settingsFragment.stringLiveData
+import com.marinoariasg.conduentweather.screens.settingsFragment.stringLiveData
 import timber.log.Timber
 
 //TODO: add phone current location
@@ -38,7 +39,8 @@ class CurrentLocationFragment : Fragment() {
         )
 
         // get default values so when the app is first installed shows some data
-        val weatherLookUpParameters = WeatherLookUpParameters()
+        val weatherLookUpParameters =
+            WeatherLookUpParameters()
         // Holder for the city/country name
         var place = weatherLookUpParameters.cityName
 

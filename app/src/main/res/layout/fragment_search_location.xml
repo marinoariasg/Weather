@@ -2,13 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".searchLocation.SearchLocationFragment">
+    tools:context=".screens.searchLocation.SearchLocationFragment">
 
     <data>
 
         <variable
             name="searchLocationViewModel"
-            type="com.marinoariasg.conduentweather.searchLocation.SearchLocationViewModel" />
+            type="com.marinoariasg.conduentweather.screens.searchLocation.SearchLocationViewModel" />
     </data>
 
     <LinearLayout
@@ -22,42 +22,40 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:paddingTop="16dp"
-            android:text="Select Searching Parameters"
+            android:text="Select Searching Parameter"
             android:textColor="@android:color/darker_gray"
             android:textSize="16sp" />
 
         <RadioGroup
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:theme="@style/RadioButtonStyle">
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="@{() -> searchLocationViewModel.onSetByCityName()}"
-                android:text="By City name"
-                android:textColor="@android:color/white" />
+
+                android:text=" City name" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="@{() -> searchLocationViewModel.onSetByCityId()}"
-                android:text="By City ID"
-                android:textColor="@android:color/white" />
+                android:text=" City ID"/>
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="@{() -> searchLocationViewModel.onSetByLatAndLon()}"
-                android:text="By lat, lon"
-                android:textColor="@android:color/white" />
+                android:text=" lat, lon" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="@{() -> searchLocationViewModel.onSetByZipCode()}"
-                android:text="By ZipCode"
-                android:textColor="@android:color/white" />
+                android:text=" ZipCode"/>
 
         </RadioGroup>
 

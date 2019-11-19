@@ -1,4 +1,4 @@
-package com.marinoariasg.conduentweather.searchLocation
+package com.marinoariasg.conduentweather.screens.searchLocation
 
 
 import android.app.Application
@@ -83,7 +83,8 @@ class SearchLocationViewModel(private val _unitsFormat: String, application: App
         get() = _showByCityNameOptions
     /** **/
     private fun byCityNameOptionsVisible() {
-        _showByCityNameOptions.value = VISIBLE
+        _showByCityNameOptions.value =
+            VISIBLE
     }
     /**  **/
     private fun byCityNameOptionsGone() {

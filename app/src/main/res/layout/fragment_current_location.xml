@@ -2,13 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".currentLocation.CurrentLocationFragment">
+    tools:context=".screens.currentLocation.CurrentLocationFragment">
 
     <data>
 
         <variable
             name="currentLocationViewModel"
-            type="com.marinoariasg.conduentweather.currentLocation.CurrentLocationViewModel" />
+            type="com.marinoariasg.conduentweather.screens.currentLocation.CurrentLocationViewModel" />
 
     </data>
 

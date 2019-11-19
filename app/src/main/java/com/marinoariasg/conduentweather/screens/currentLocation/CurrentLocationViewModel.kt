@@ -1,9 +1,9 @@
-package com.marinoariasg.conduentweather.currentLocation
+package com.marinoariasg.conduentweather.screens.currentLocation
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.marinoariasg.conduentweather.WeatherLookUpParameters
+import com.marinoariasg.conduentweather.screens.WeatherLookUpParameters
 import com.marinoariasg.conduentweather.network.WeatherData
 import com.marinoariasg.conduentweather.repository.WeatherRepository
 import kotlinx.coroutines.CoroutineScope

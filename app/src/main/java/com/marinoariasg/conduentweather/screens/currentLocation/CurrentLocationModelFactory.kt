@@ -1,8 +1,8 @@
-package com.marinoariasg.conduentweather.currentLocation
+package com.marinoariasg.conduentweather.screens.currentLocation
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.marinoariasg.conduentweather.WeatherLookUpParameters
+import com.marinoariasg.conduentweather.screens.WeatherLookUpParameters
 import java.lang.IllegalArgumentException
 
 class CurrentLocationModelFactory(private val weatherLookUpParameters: WeatherLookUpParameters) :
