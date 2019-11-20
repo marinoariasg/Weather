@@ -4,7 +4,6 @@ package com.marinoariasg.conduentweather.screens.currentLocation
 import android.os.Bundle
 import android.preference.PreferenceManager
 import android.view.*
-import android.widget.Toast
 
 
 import androidx.databinding.DataBindingUtil
@@ -13,9 +12,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI
-import com.google.android.material.snackbar.Snackbar
 import com.marinoariasg.conduentweather.R
-import com.marinoariasg.conduentweather.screens.WeatherLookUpParameters
 import com.marinoariasg.conduentweather.databinding.FragmentCurrentLocationBinding
 import com.marinoariasg.conduentweather.screens.settingsFragment.stringLiveData
 import timber.log.Timber

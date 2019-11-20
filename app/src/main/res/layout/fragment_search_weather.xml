@@ -39,7 +39,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="@{() -> searchWeatherViewModel.onSetByCityName()}"
-
                 android:text=" Name" />
 
             <RadioButton
@@ -74,9 +73,9 @@
             android:inputType="text"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:text="@={searchWeatherViewModel.byCityName.cityName}"
+            android:text="@={searchWeatherViewModel.searchingParameters.byCityName.cityName}"
             android:textSize="18sp"
-            android:visibility="@{searchWeatherViewModel.byCityName.visibility}" />
+            android:visibility="@{searchWeatherViewModel.searchingParameters.byCityName.visibility}" />
 
         <!--        country code-->
         <com.google.android.material.textfield.TextInputEditText
@@ -90,9 +89,9 @@
             android:inputType="text"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:text="@={searchWeatherViewModel.byCityName.countryCode}"
+            android:text="@={searchWeatherViewModel.searchingParameters.byCityName.countryCode}"
             android:textSize="18sp"
-            android:visibility="@{searchWeatherViewModel.byCityName.visibility}" />
+            android:visibility="@{searchWeatherViewModel.searchingParameters.byCityName.visibility}" />
 
         <!--        search by Id-->
         <com.google.android.material.textfield.TextInputEditText
@@ -106,9 +105,9 @@
             android:inputType="number"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:text="@={searchWeatherViewModel.byCityId.cityId}"
+            android:text="@={searchWeatherViewModel.searchingParameters.byCityId.cityId}"
             android:textSize="18sp"
-            android:visibility="@{searchWeatherViewModel.byCityId.visibility}" />
+            android:visibility="@{searchWeatherViewModel.searchingParameters.byCityId.visibility}" />
 
         <!--        search by Geographic coordinates (lat)-->
         <!--        accepts negative an positive double-->
@@ -123,9 +122,9 @@
             android:inputType="numberDecimal|numberSigned"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:text="@={searchWeatherViewModel.byLatAndLon.latitude}"
+            android:text="@={searchWeatherViewModel.searchingParameters.byLatAndLon.latitude}"
             android:textSize="18sp"
-            android:visibility="@{searchWeatherViewModel.byLatAndLon.visibility}" />
+            android:visibility="@{searchWeatherViewModel.searchingParameters.byLatAndLon.visibility}" />
 
         <!--        search by Geographic coordinates (lon)-->
         <!--        accepts negative an positive double-->
@@ -140,9 +139,9 @@
             android:inputType="numberDecimal|numberSigned"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:text="@={searchWeatherViewModel.byLatAndLon.longitude}"
+            android:text="@={searchWeatherViewModel.searchingParameters.byLatAndLon.longitude}"
             android:textSize="18sp"
-            android:visibility="@{searchWeatherViewModel.byLatAndLon.visibility}" />
+            android:visibility="@{searchWeatherViewModel.searchingParameters.byLatAndLon.visibility}" />
 
         <!--        Search by ZipCode {zip code}, -->
         <com.google.android.material.textfield.TextInputEditText
@@ -156,9 +155,9 @@
             android:inputType="number"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:text="@={searchWeatherViewModel.byZipCode.zipCode}"
+            android:text="@={searchWeatherViewModel.searchingParameters.byZipCode.zipCode}"
             android:textSize="18sp"
-            android:visibility="@{searchWeatherViewModel.byZipCode.visibility}" />
+            android:visibility="@{searchWeatherViewModel.searchingParameters.byZipCode.visibility}" />
 
         <!--        Search by ZipCode ,{country code} -->
         <com.google.android.material.textfield.TextInputEditText
@@ -172,9 +171,9 @@
             android:inputType="textCapCharacters"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:text="@={searchWeatherViewModel.byZipCode.countryCode}"
+            android:text="@={searchWeatherViewModel.searchingParameters.byZipCode.countryCode}"
             android:textSize="18sp"
-            android:visibility="@{searchWeatherViewModel.byZipCode.visibility}" />
+            android:visibility="@{searchWeatherViewModel.searchingParameters.byZipCode.visibility}" />
 
         <Button
             style="?android:attr/borderlessButtonStyle"
@@ -188,7 +187,7 @@
             android:onClick="@{() -> searchWeatherViewModel.onSearch()}"
             android:text="Search"
             android:textAllCaps="false"
-            android:textColor="@color/colorPrimaryDark"
+            android:textColor="@color/colorAccent"
             android:visibility="@{searchWeatherViewModel.buttonVisibility}" />
 
         <LinearLayout

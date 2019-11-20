@@ -1,7 +1,8 @@
-package com.marinoariasg.conduentweather.screens.searchWeather
+package com.marinoariasg.conduentweather.screens.searchWeather.searchingParameters
 
 import com.marinoariasg.conduentweather.network.WeatherData
 import com.marinoariasg.conduentweather.repository.WeatherRepository
+import com.marinoariasg.conduentweather.screens.searchWeather.searchingParameters.Search
 import timber.log.Timber
 
 

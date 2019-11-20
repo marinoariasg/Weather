@@ -1,4 +1,4 @@
-package com.marinoariasg.conduentweather.screens
+package com.marinoariasg.conduentweather.screens.currentLocation
 
 /*
 Temperature is available in Fahrenheit, Celsius and Kelvin units.

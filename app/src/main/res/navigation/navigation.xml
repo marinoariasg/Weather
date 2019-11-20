@@ -14,7 +14,7 @@
         android:id="@+id/search_location_fragment"
         android:name="com.marinoariasg.conduentweather.screens.searchWeather.SearchWeatherFragment"
         android:label="Search Weather by city ..."
-        tools:layout="@layout/fragment_search_location" />
+        tools:layout="@layout/fragment_search_weather" />
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.marinoariasg.conduentweather.screens.settingsFragment.SettingsFragment"

@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import com.marinoariasg.conduentweather.R
-import com.marinoariasg.conduentweather.databinding.FragmentSearchLocationBinding
+import com.marinoariasg.conduentweather.databinding.FragmentSearchWeatherBinding
 
 /**
  * A simple [Fragment] subclass.
@@ -21,9 +21,9 @@ class SearchWeatherFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val binding: FragmentSearchLocationBinding = DataBindingUtil.inflate(
+        val binding: FragmentSearchWeatherBinding = DataBindingUtil.inflate(
             inflater,
-            R.layout.fragment_search_location, container, false
+            R.layout.fragment_search_weather, container, false
         )
 
         // Reference of the application that this fragment is attached to, pass it to the
@@ -33,9 +33,7 @@ class SearchWeatherFragment : Fragment() {
         // TODO: get the unitsFormat from SharedPreferences
         //Create an instance of the ViewModelFactory
         val searchWeatherViewModelFactory =
-            SearchWeatherViewModelFactory(
-                unitsFormat = "metric", application = application
-            )
+            SearchWeatherViewModelFactory(unitsFormat = "metric", application = application)
 
         // Get the ViewModel associated with this fragment.
         val searchWeatherViewModel = ViewModelProviders.of(

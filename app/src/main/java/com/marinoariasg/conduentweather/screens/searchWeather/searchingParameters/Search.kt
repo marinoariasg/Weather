@@ -1,9 +1,11 @@
-package com.marinoariasg.conduentweather.screens.searchWeather
+package com.marinoariasg.conduentweather.screens.searchWeather.searchingParameters
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.marinoariasg.conduentweather.network.WeatherData
 import com.marinoariasg.conduentweather.repository.WeatherRepository
+import com.marinoariasg.conduentweather.screens.searchWeather.GONE
+import com.marinoariasg.conduentweather.screens.searchWeather.VISIBLE
 
 abstract class Search (var units: String) {
 
@@ -14,11 +16,13 @@ abstract class Search (var units: String) {
         get() = _visibility
 
     fun visible() {
-        _visibility.value = VISIBLE
+        _visibility.value =
+            VISIBLE
     }
 
     fun gone() {
-        _visibility.value = GONE
+        _visibility.value =
+            GONE
     }
 
     abstract suspend fun getDataFromRepository(repository: WeatherRepository): WeatherData
