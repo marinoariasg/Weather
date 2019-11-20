@@ -38,25 +38,25 @@
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> searchWeatherViewModel.onSetByCityName()}"
+                android:onClick="@{() -> searchWeatherViewModel.onRadioButtonClicked(1)}"
                 android:text=" Name" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> searchWeatherViewModel.onSetByCityId()}"
+                android:onClick="@{() -> searchWeatherViewModel.onRadioButtonClicked(2)}"
                 android:text=" ID" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> searchWeatherViewModel.onSetByLatAndLon()}"
+                android:onClick="@{() -> searchWeatherViewModel.onRadioButtonClicked(3)}"
                 android:text=" Geographic Coordinates (Lat, Lon)" />
 
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> searchWeatherViewModel.onSetByZipCode()}"
+                android:onClick="@{() -> searchWeatherViewModel.onRadioButtonClicked(4)}"
                 android:text=" ZipCode" />
 
         </RadioGroup>
@@ -184,7 +184,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginRight="16dp"
             android:background="@drawable/search_location_background_edit_text"
-            android:onClick="@{() -> searchWeatherViewModel.onSearch()}"
+            android:onClick="@{() -> searchWeatherViewModel.onButtonSearchClicked()}"
             android:text="Search"
             android:textAllCaps="false"
             android:textColor="@color/colorAccent"

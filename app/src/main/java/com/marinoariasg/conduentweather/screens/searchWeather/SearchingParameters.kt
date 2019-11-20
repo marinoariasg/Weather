@@ -24,6 +24,15 @@ class SearchingParameters(units: String) {
         }
     }
 
+    fun getCurrentVisibleObject(): Search? {
+        for (objectToCheck in searchingObjects) {
+            if (objectToCheck.visibility.value == VISIBLE) {
+                return objectToCheck
+            }
+        }
+        return null
+    }
+
 
 
 }

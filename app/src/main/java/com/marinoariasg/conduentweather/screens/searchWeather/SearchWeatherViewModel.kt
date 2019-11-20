@@ -1,6 +1,5 @@
 package com.marinoariasg.conduentweather.screens.searchWeather
 
-
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -16,7 +15,7 @@ import kotlinx.coroutines.launch
 const val GONE: Int = 8
 const val VISIBLE: Int = 0
 
-class SearchWeatherViewModel(_unitsFormat: String = "metric", application: Application) :
+class SearchWeatherViewModel(_unitsFormat: String = "kelvin", application: Application) :
     AndroidViewModel(application) {
 
     private val _weatherResponse = MutableLiveData<WeatherData>()
@@ -37,49 +36,28 @@ class SearchWeatherViewModel(_unitsFormat: String = "metric", application: Appli
     val buttonVisibility: LiveData<Int>
         get() = _buttonVisibility
 
+    fun onRadioButtonClicked(radioButtonId: Int) {
+        when (radioButtonId) {
+            1 -> setVisible(searchingParameters.byCityName)
+            2 -> setVisible(searchingParameters.byCityId)
+            3 -> setVisible(searchingParameters.byLatAndLon)
+            4 -> setVisible(searchingParameters.byZipCode)
+        }
+    }
+
+    private fun setVisible(searchObject: Search) {
+        setSearchButtonVisible()
+        searchingParameters.setVisibility(searchObject)
+    }
+
     private fun setSearchButtonVisible() {
         // Just do this if the button is not visible.
         if (buttonVisibility.value == GONE) _buttonVisibility.value = VISIBLE
     }
 
-    /** Radio buttons options **/
-    fun onSetByCityName() {
-        searchingParameters.setVisibility(searchingParameters.byCityName)
-        setSearchButtonVisible()
-    }
-
-    fun onSetByCityId() {
-        searchingParameters.setVisibility(searchingParameters.byCityId)
-        setSearchButtonVisible()
-    }
-
-    fun onSetByLatAndLon() {
-        searchingParameters.setVisibility(searchingParameters.byLatAndLon)
-        setSearchButtonVisible()
-    }
-
-    fun onSetByZipCode() {
-        searchingParameters.setVisibility(searchingParameters.byZipCode)
-        setSearchButtonVisible()
-    }
-
     // Button can only call this when is visible (after a radio button have been selected)
-    // Use by the button on the xml
-    fun onSearch() {
-        when (VISIBLE) {
-            searchingParameters.byCityName.visibility.value -> updateWeatherResponse(
-                searchingParameters.byCityName
-            )
-            searchingParameters.byCityId.visibility.value -> updateWeatherResponse(
-                searchingParameters.byCityId
-            )
-            searchingParameters.byLatAndLon.visibility.value -> updateWeatherResponse(
-                searchingParameters.byLatAndLon
-            )
-            searchingParameters.byZipCode.visibility.value -> updateWeatherResponse(
-                searchingParameters.byZipCode
-            )
-        }
+    fun onButtonSearchClicked() {
+        updateWeatherResponse(searchingParameters.getCurrentVisibleObject()!!)
     }
 
     private fun updateWeatherResponse(searchObject: Search) {
