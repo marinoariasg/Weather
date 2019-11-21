@@ -8,25 +8,27 @@ class SearchingParameters(units: String) {
     val byLatAndLon: SearchByLatAndLon = SearchByLatAndLon(units = units, id = 3)
     val byZipCode: SearchByZipCode = SearchByZipCode(units = units, id = 4)
 
+    // EditTexts inputs from the xml
+    var editTextFirstInput = ""
+    var editTextSecondInput = ""
+
     // Adds the text for the editText to the parameter that is currently on display
-    fun addInfoFromEtToShowingParameter(
-        firstInput: String, secondInput: String, showingSearchParameter: Search
-    ) {
+    fun getTextFromEditText(showingSearchParameter: Search) {
         when (showingSearchParameter) {
             is SearchByCityName -> {
-                byCityName.cityName = firstInput
-                byCityName.countryCode = secondInput
+                byCityName.cityName = editTextFirstInput
+                byCityName.countryCode = editTextSecondInput
             }
             is SearchByCityId -> {
-                byCityId.cityId = firstInput
+                byCityId.cityId = editTextFirstInput
             }
             is SearchByLatAndLon -> {
-                byLatAndLon.latitude = firstInput
-                byLatAndLon.longitude = secondInput
+                byLatAndLon.latitude = editTextFirstInput
+                byLatAndLon.longitude = editTextSecondInput
             }
             is SearchByZipCode -> {
-                byZipCode.zipCode = firstInput
-                byZipCode.countryCode = secondInput
+                byZipCode.zipCode = editTextFirstInput
+                byZipCode.countryCode = editTextSecondInput
             }
         }
     }

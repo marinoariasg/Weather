@@ -1,4 +1,4 @@
-package com.marinoariasg.conduentweather
+package com.marinoariasg.conduentweather.screens
 
 import android.annotation.SuppressLint
 import java.text.SimpleDateFormat

@@ -1,7 +1,6 @@
 package com.marinoariasg.conduentweather.screens.searchWeather
 
 import android.app.Application
-import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -13,7 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 
-class SearchWeatherViewModel(_unitsFormat: String = "metric", application: Application) :
+class SearchWeatherViewModel(_unitsFormat: String = "imperial", application: Application) :
     AndroidViewModel(application) {
 
     private val _weatherResponse = MutableLiveData<WeatherData>()
@@ -28,20 +27,11 @@ class SearchWeatherViewModel(_unitsFormat: String = "metric", application: Appli
 
     val searchingParameters = SearchingParameters(_unitsFormat)
 
-    private var _searchParameterToShow = MutableLiveData<Search>()
+    // Start with default searchParameter to display (byCityName)
+    private var _searchParameterToShow = MutableLiveData<Search>(searchingParameters.byCityName)
     // Used by TextView on the xml
     val searchParameterToShow: LiveData<Search>
         get() = _searchParameterToShow
-
-    // EditTexts inputs from the xml
-    var editTextFirstInput = ""
-    var editTextSecondInput = ""
-
-    // Button Visibility and options
-    private var _buttonVisibility = MutableLiveData<Int>(View.GONE)
-    // Used by the xml
-    val buttonVisibility: LiveData<Int>
-        get() = _buttonVisibility
 
     fun onRadioButtonClicked(searchParameterId: Int) {
         when (searchParameterId) {
@@ -53,24 +43,12 @@ class SearchWeatherViewModel(_unitsFormat: String = "metric", application: Appli
     }
 
     private fun setVisible(searchParameter: Search) {
-        setSearchButtonVisible()
-        showThisSearchParameter(searchParameter)
-    }
-
-    private fun setSearchButtonVisible() {
-        // Just do this if the button is not visible.
-        if (buttonVisibility.value == View.GONE) _buttonVisibility.value = View.VISIBLE
-    }
-
-    // this is for the visibility of the editText
-    private fun showThisSearchParameter(searchParameter: Search) {
         _searchParameterToShow.value = searchParameter
     }
 
     fun onButtonSearchClicked() {
         // Before checking for weather get the editText info from user
-        searchingParameters.addInfoFromEtToShowingParameter(
-            firstInput = editTextFirstInput, secondInput = editTextSecondInput,
+        searchingParameters.getTextFromEditText(
             showingSearchParameter = searchParameterToShow.value!!
         )
         // Update with the current parameter selected by the radio button

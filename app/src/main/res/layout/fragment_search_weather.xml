@@ -33,21 +33,24 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:orientation="vertical"
+            android:checkedButton="@id/one"
             android:theme="@style/RadioButtonStyle">
 
             <!--            byCityName-->
             <RadioButton
+                android:id="@+id/one"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="@{() -> searchWeatherViewModel.onRadioButtonClicked(searchWeatherViewModel.searchingParameters.byCityName.id)}"
-                android:text=" Name" />
+                android:text=" Name"
+                android:checked="true"/>
 
             <!--            byCityId-->
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:onClick="@{() -> searchWeatherViewModel.onRadioButtonClicked(searchWeatherViewModel.searchingParameters.byCityId.id)}"
-                android:text=" ID" />
+                android:text=" ID"/>
 
             <!--            byLatAndLon-->
             <RadioButton
@@ -73,11 +76,10 @@
             android:layout_marginTop="45dp"
             android:layout_marginRight="16dp"
             android:background="@drawable/search_location_background_edit_text"
-            android:hint="City Name"
             android:inputType="text"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:text="@={searchWeatherViewModel.editTextFirstInput}"
+            android:text="@={searchWeatherViewModel.searchingParameters.editTextFirstInput}"
             android:textSize="18sp"
             android:visibility="gone"
             app:firstParameter="@{searchWeatherViewModel.searchParameterToShow}" />
@@ -90,11 +92,10 @@
             android:layout_marginTop="16dp"
             android:layout_marginRight="16dp"
             android:background="@drawable/search_location_background_edit_text"
-            android:hint="County Code"
             android:inputType="text"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:text="@={searchWeatherViewModel.editTextSecondInput}"
+            android:text="@={searchWeatherViewModel.searchingParameters.editTextSecondInput}"
             android:textSize="18sp"
             android:visibility="gone"
             app:secondParameter="@{searchWeatherViewModel.searchParameterToShow}" />
@@ -111,8 +112,7 @@
             android:onClick="@{() -> searchWeatherViewModel.onButtonSearchClicked()}"
             android:text="Search"
             android:textAllCaps="false"
-            android:textColor="@color/colorAccent"
-            android:visibility="@{searchWeatherViewModel.buttonVisibility}" />
+            android:textColor="@color/colorAccent"/>
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -1,17 +1,11 @@
 package com.marinoariasg.conduentweather.screens
 
-import android.opengl.Visibility
-import android.text.Editable
-import android.text.InputType
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.google.android.material.textfield.TextInputEditText
 import com.marinoariasg.conduentweather.R
-import com.marinoariasg.conduentweather.convertLongToDateString
-import com.marinoariasg.conduentweather.convertLongToDateStringJustTime
-import com.marinoariasg.conduentweather.formatTemperatureToString
 import com.marinoariasg.conduentweather.network.WeatherData
 import com.marinoariasg.conduentweather.screens.searchWeather.searchingParameters.*
 import timber.log.Timber
@@ -19,7 +13,10 @@ import timber.log.Timber
 @BindingAdapter("temperature")
 fun TextView.setTemperature(item: WeatherData?) {
     item?.let {
-        text = formatTemperatureToString(item.main?.temperature)
+        text =
+            formatTemperatureToString(
+                item.main?.temperature
+            )
     }
 }
 
@@ -63,7 +60,8 @@ fun TextView.setCityName(item: WeatherData?) {
 @BindingAdapter("timeOfCalculation")
 fun TextView.setTimeOfCalculation(item: WeatherData?) {
     item?.let {
-        text = convertLongToDateString(item.timeOfDataCalculation)
+        text =
+            convertLongToDateString(item.timeOfDataCalculation)
     }
 }
 
@@ -81,8 +79,12 @@ fun TextView.setVariousProperties(item: WeatherData?) {
         text = "Cloudiness:         ${item?.clouds?.cloudiness}%\n" +
                 "Humidity:             ${item?.main?.humidity}%\n" +
                 "Wind Speed: ${item.wind?.speed} mph\n" +
-                "Sunrise:         ${convertLongToDateStringJustTime(item.sys?.sunrise)}\n" +
-                "Sunset:          ${convertLongToDateStringJustTime(item.sys?.sunset)}"
+                "Sunrise:         ${convertLongToDateStringJustTime(
+                    item.sys?.sunrise
+                )}\n" +
+                "Sunset:          ${convertLongToDateStringJustTime(
+                    item.sys?.sunset
+                )}"
     }
 }
 

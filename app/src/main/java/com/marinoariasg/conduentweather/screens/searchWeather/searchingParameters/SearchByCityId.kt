@@ -13,7 +13,7 @@ class SearchByCityId(var cityId: String = "", units: String, override val id: In
     override val firstParameterInputType: Int
         get() = InputType.TYPE_CLASS_NUMBER
 
-    // Second parameter is not use
+    // Second parameter is not in use
     override val secondParameterHint: String
         get() = ""
     override val secondParameterInputType: Int
