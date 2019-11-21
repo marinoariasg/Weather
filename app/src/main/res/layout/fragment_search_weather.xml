@@ -70,13 +70,13 @@
             android:layout_marginRight="16dp"
             android:background="@drawable/search_location_background_edit_text"
             android:hint="City Name"
-            app:hint="@{searchWeatherViewModel.obj}"
+            app:firstParameter="@{searchWeatherViewModel.currentSearchObjOnEditText}"
             android:inputType="text"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:text="@={searchWeatherViewModel.searchingParameters.byCityName.cityName}"
             android:textSize="18sp"
-            android:visibility="@{searchWeatherViewModel.searchingParameters.byCityName.visibility}" />
+            android:visibility="gone" />
 
         <!--        country code-->
         <com.google.android.material.textfield.TextInputEditText
@@ -87,94 +87,19 @@
             android:layout_marginRight="16dp"
             android:background="@drawable/search_location_background_edit_text"
             android:hint="County Code"
+            app:secondParameter="@{searchWeatherViewModel.currentSearchObjOnEditText}"
             android:inputType="text"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:text="@={searchWeatherViewModel.searchingParameters.byCityName.countryCode}"
             android:textSize="18sp"
-            android:visibility="@{searchWeatherViewModel.searchingParameters.byCityName.visibility}" />
+            android:visibility="gone" />
 
-        <!--        search by Id-->
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="45dp"
-            android:layout_marginRight="16dp"
-            android:background="@drawable/search_location_background_edit_text"
-            android:hint="City Id"
-            android:inputType="number"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:text="@={searchWeatherViewModel.searchingParameters.byCityId.cityId}"
-            android:textSize="18sp"
-            android:visibility="@{searchWeatherViewModel.searchingParameters.byCityId.visibility}" />
 
-        <!--        search by Geographic coordinates (lat)-->
-        <!--        accepts negative an positive double-->
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="45dp"
-            android:layout_marginRight="16dp"
-            android:background="@drawable/search_location_background_edit_text"
-            android:hint="Lat"
-            android:inputType="numberDecimal|numberSigned"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:text="@={searchWeatherViewModel.searchingParameters.byLatAndLon.latitude}"
-            android:textSize="18sp"
-            android:visibility="@{searchWeatherViewModel.searchingParameters.byLatAndLon.visibility}" />
 
-        <!--        search by Geographic coordinates (lon)-->
-        <!--        accepts negative an positive double-->
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="16dp"
-            android:background="@drawable/search_location_background_edit_text"
-            android:hint="Lon"
-            android:inputType="numberDecimal|numberSigned"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:text="@={searchWeatherViewModel.searchingParameters.byLatAndLon.longitude}"
-            android:textSize="18sp"
-            android:visibility="@{searchWeatherViewModel.searchingParameters.byLatAndLon.visibility}" />
 
-        <!--        Search by ZipCode {zip code}, -->
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="45dp"
-            android:layout_marginRight="16dp"
-            android:background="@drawable/search_location_background_edit_text"
-            android:hint="ZipCode"
-            android:inputType="number"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:text="@={searchWeatherViewModel.searchingParameters.byZipCode.zipCode}"
-            android:textSize="18sp"
-            android:visibility="@{searchWeatherViewModel.searchingParameters.byZipCode.visibility}" />
 
-        <!--        Search by ZipCode ,{country code} -->
-        <com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="30dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginRight="16dp"
-            android:background="@drawable/search_location_background_edit_text"
-            android:hint="Country code"
-            android:inputType="textCapCharacters"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            android:text="@={searchWeatherViewModel.searchingParameters.byZipCode.countryCode}"
-            android:textSize="18sp"
-            android:visibility="@{searchWeatherViewModel.searchingParameters.byZipCode.visibility}" />
+
 
         <Button
             style="?android:attr/borderlessButtonStyle"

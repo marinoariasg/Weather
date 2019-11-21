@@ -38,27 +38,28 @@ class SearchWeatherViewModel(_unitsFormat: String = "metric", application: Appli
 
     fun onRadioButtonClicked(radioButtonId: Int) {
         when (radioButtonId) {
-            1 -> {
-                setVisible(searchingParameters.byCityName)
-                _obj.value = searchingParameters.byCityName
-            }
-
-            2 -> {
-                setVisible(searchingParameters.byCityId)
-                _obj.value = searchingParameters.byCityId
-            }
+            1 -> setVisible(searchingParameters.byCityName)
+            2 -> setVisible(searchingParameters.byCityId)
             3 -> setVisible(searchingParameters.byLatAndLon)
             4 -> setVisible(searchingParameters.byZipCode)
+
         }
     }
 
-    private var _obj = MutableLiveData<Search>()
-    val obj: LiveData<Search>
-        get() = _obj
+    private var _currentSearchObjOnEditText = MutableLiveData<Search>()
+    // Used by TextView on the xml
+    val currentSearchObjOnEditText: LiveData<Search>
+        get() = _currentSearchObjOnEditText
+
+    // this is for the visibility of the editText
+    fun setVisibleEditTextForSearchObject(searchObject: Search) {
+        _currentSearchObjOnEditText.value = searchObject
+    }
 
     private fun setVisible(searchObject: Search) {
         setSearchButtonVisible()
         searchingParameters.setVisibility(searchObject)
+        setVisibleEditTextForSearchObject(searchObject)
     }
 
     private fun setSearchButtonVisible() {

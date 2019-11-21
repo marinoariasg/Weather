@@ -1,5 +1,8 @@
 package com.marinoariasg.conduentweather.screens
 
+import android.opengl.Visibility
+import android.text.InputType
+import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -9,10 +12,10 @@ import com.marinoariasg.conduentweather.convertLongToDateString
 import com.marinoariasg.conduentweather.convertLongToDateStringJustTime
 import com.marinoariasg.conduentweather.formatTemperatureToString
 import com.marinoariasg.conduentweather.network.WeatherData
+import com.marinoariasg.conduentweather.screens.searchWeather.GONE
 import com.marinoariasg.conduentweather.screens.searchWeather.SearchingParameters
-import com.marinoariasg.conduentweather.screens.searchWeather.searchingParameters.Search
-import com.marinoariasg.conduentweather.screens.searchWeather.searchingParameters.SearchByCityId
-import com.marinoariasg.conduentweather.screens.searchWeather.searchingParameters.SearchByCityName
+import com.marinoariasg.conduentweather.screens.searchWeather.VISIBLE
+import com.marinoariasg.conduentweather.screens.searchWeather.searchingParameters.*
 import timber.log.Timber
 
 @BindingAdapter("temperature")
@@ -85,17 +88,70 @@ fun TextView.setVariousProperties(item: WeatherData?) {
     }
 }
 
-@BindingAdapter("hint")
-fun TextInputEditText.setHint(item: Search?) {
-    Timber.i("Binding trying to figure out Search type")
-    when(item) {
+@BindingAdapter("firstParameter")
+fun TextInputEditText.setFirstParameter(item: Search?) {
+    Timber.i("Binding trying to figure out Search type first InputText")
+    when (item) {
         is SearchByCityName -> {
-            item.let { hint = "coloque Nombre" }
-            Timber.i("Name Type")
+            item.let {
+                hint = "City Name"
+                inputType = InputType.TYPE_CLASS_TEXT
+                visibility = View.VISIBLE
+            }
         }
         is SearchByCityId -> {
-            item.let { hint = "city id jajj" }
-            Timber.i("Id type")
+            item.let {
+                hint = "City Id"
+                inputType = InputType.TYPE_CLASS_NUMBER
+                visibility = View.VISIBLE
+            }
+        }
+        is SearchByLatAndLon -> {
+            item.let {
+                hint = "Latitude"
+                inputType = InputType.TYPE_CLASS_NUMBER
+                visibility = View.VISIBLE
+            }
+        }
+        is SearchByZipCode -> {
+            item.let {
+                hint = "City ZipCode"
+                inputType = InputType.TYPE_CLASS_NUMBER
+                visibility = View.VISIBLE
+            }
+        }
+    }
+}
+
+@BindingAdapter("secondParameter")
+fun TextInputEditText.setSecondParameter(item: Search?) {
+    Timber.i("Binding trying to figure out Search type second InputText")
+    when (item) {
+        is SearchByCityName -> {
+            item.let {
+                hint = "Country Code"
+                inputType = InputType.TYPE_CLASS_TEXT
+                visibility = View.VISIBLE
+            }
+        }
+        is SearchByCityId -> {
+            item.let {
+                visibility = View.GONE
+            }
+        }
+        is SearchByLatAndLon -> {
+            item.let {
+                hint = "Longitude"
+                inputType = InputType.TYPE_CLASS_NUMBER
+                visibility = View.VISIBLE
+            }
+        }
+        is SearchByZipCode -> {
+            item.let {
+                hint = "Country Code"
+                inputType = InputType.TYPE_CLASS_TEXT
+                visibility = View.VISIBLE
+            }
         }
     }
 }
