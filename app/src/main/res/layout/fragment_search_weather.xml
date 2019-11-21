@@ -35,28 +35,32 @@
             android:orientation="vertical"
             android:theme="@style/RadioButtonStyle">
 
+            <!--            byCityName-->
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> searchWeatherViewModel.onRadioButtonClicked(1)}"
+                android:onClick="@{() -> searchWeatherViewModel.onRadioButtonClicked(searchWeatherViewModel.searchingParameters.byCityName.id)}"
                 android:text=" Name" />
 
+            <!--            byCityId-->
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> searchWeatherViewModel.onRadioButtonClicked(2)}"
+                android:onClick="@{() -> searchWeatherViewModel.onRadioButtonClicked(searchWeatherViewModel.searchingParameters.byCityId.id)}"
                 android:text=" ID" />
 
+            <!--            byLatAndLon-->
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> searchWeatherViewModel.onRadioButtonClicked(3)}"
+                android:onClick="@{() -> searchWeatherViewModel.onRadioButtonClicked(searchWeatherViewModel.searchingParameters.byLatAndLon.id)}"
                 android:text=" Geographic Coordinates (Lat, Lon)" />
 
+            <!--            byZipCode-->
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> searchWeatherViewModel.onRadioButtonClicked(4)}"
+                android:onClick="@{() -> searchWeatherViewModel.onRadioButtonClicked(searchWeatherViewModel.searchingParameters.byZipCode.id)}"
                 android:text=" ZipCode" />
 
         </RadioGroup>
@@ -70,13 +74,13 @@
             android:layout_marginRight="16dp"
             android:background="@drawable/search_location_background_edit_text"
             android:hint="City Name"
-            app:firstParameter="@{searchWeatherViewModel.searchParameterToShow}"
             android:inputType="text"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:text="@={searchWeatherViewModel.editTextFirstInput}"
             android:textSize="18sp"
-            android:visibility="gone" />
+            android:visibility="gone"
+            app:firstParameter="@{searchWeatherViewModel.searchParameterToShow}" />
 
         <!--        second Input-->
         <com.google.android.material.textfield.TextInputEditText
@@ -87,14 +91,13 @@
             android:layout_marginRight="16dp"
             android:background="@drawable/search_location_background_edit_text"
             android:hint="County Code"
-            app:secondParameter="@{searchWeatherViewModel.searchParameterToShow}"
             android:inputType="text"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
             android:text="@={searchWeatherViewModel.editTextSecondInput}"
             android:textSize="18sp"
-            android:visibility="gone" />
-
+            android:visibility="gone"
+            app:secondParameter="@{searchWeatherViewModel.searchParameterToShow}" />
 
         <Button
             style="?android:attr/borderlessButtonStyle"

@@ -26,7 +26,7 @@ class SearchWeatherViewModel(_unitsFormat: String = "metric", application: Appli
 
     private val weatherRepository: WeatherRepository = WeatherRepository()
 
-    private val searchingParameters = SearchingParameters(_unitsFormat)
+    val searchingParameters = SearchingParameters(_unitsFormat)
 
     private var _searchParameterToShow = MutableLiveData<Search>()
     // Used by TextView on the xml
@@ -43,12 +43,12 @@ class SearchWeatherViewModel(_unitsFormat: String = "metric", application: Appli
     val buttonVisibility: LiveData<Int>
         get() = _buttonVisibility
 
-    fun onRadioButtonClicked(radioButtonId: Int) {
-        when (radioButtonId) {
-            1 -> setVisible(searchingParameters.byCityName)
-            2 -> setVisible(searchingParameters.byCityId)
-            3 -> setVisible(searchingParameters.byLatAndLon)
-            4 -> setVisible(searchingParameters.byZipCode)
+    fun onRadioButtonClicked(searchParameterId: Int) {
+        when (searchParameterId) {
+            searchingParameters.byCityName.id -> setVisible(searchingParameters.byCityName)
+            searchingParameters.byCityId.id -> setVisible(searchingParameters.byCityId)
+            searchingParameters.byLatAndLon.id -> setVisible(searchingParameters.byLatAndLon)
+            searchingParameters.byZipCode.id -> setVisible(searchingParameters.byZipCode)
         }
     }
 

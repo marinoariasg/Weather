@@ -92,29 +92,33 @@ fun TextInputEditText.setFirstParameter(searchParameterToShow: Search?) {
     when (searchParameterToShow) {
         is SearchByCityName -> {
             searchParameterToShow.let {
-                hint = "City Name"
-                inputType = InputType.TYPE_CLASS_TEXT
+                hint = searchParameterToShow.firstParameterHint
+                inputType = searchParameterToShow.firstParameterInputType
+                setText("")
                 visibility = View.VISIBLE
             }
         }
         is SearchByCityId -> {
             searchParameterToShow.let {
-                hint = "City Id"
-                inputType = InputType.TYPE_CLASS_NUMBER
+                hint = searchParameterToShow.firstParameterHint
+                inputType = searchParameterToShow.firstParameterInputType
+                setText("")
                 visibility = View.VISIBLE
             }
         }
         is SearchByLatAndLon -> {
             searchParameterToShow.let {
-                hint = "Latitude"
-                inputType = InputType.TYPE_CLASS_NUMBER
+                hint = searchParameterToShow.firstParameterHint
+                inputType = searchParameterToShow.firstParameterInputType
+                setText("")
                 visibility = View.VISIBLE
             }
         }
         is SearchByZipCode -> {
             searchParameterToShow.let {
-                hint = "City ZipCode"
-                inputType = InputType.TYPE_CLASS_NUMBER
+                hint = searchParameterToShow.firstParameterHint
+                inputType = searchParameterToShow.firstParameterInputType
+                setText("")
                 visibility = View.VISIBLE
             }
         }
@@ -127,27 +131,31 @@ fun TextInputEditText.setSecondParameter(searchParameterToShow: Search?) {
     when (searchParameterToShow) {
         is SearchByCityName -> {
             searchParameterToShow.let {
-                hint = "Country Code"
-                inputType = InputType.TYPE_CLASS_TEXT
+                hint = searchParameterToShow.secondParameterHint
+                inputType = searchParameterToShow.secondParameterInputType
+                setText("")
                 visibility = View.VISIBLE
             }
         }
         is SearchByCityId -> {
             searchParameterToShow.let {
+                setText("")
                 visibility = View.GONE
             }
         }
         is SearchByLatAndLon -> {
             searchParameterToShow.let {
-                hint = "Longitude"
-                inputType = InputType.TYPE_CLASS_NUMBER
+                hint = searchParameterToShow.secondParameterHint
+                inputType = searchParameterToShow.secondParameterInputType
+                setText("")
                 visibility = View.VISIBLE
             }
         }
         is SearchByZipCode -> {
             searchParameterToShow.let {
-                hint = "Country Code"
-                inputType = InputType.TYPE_CLASS_TEXT
+                hint = searchParameterToShow.secondParameterHint
+                inputType = searchParameterToShow.secondParameterInputType
+                setText("")
                 visibility = View.VISIBLE
             }
         }
