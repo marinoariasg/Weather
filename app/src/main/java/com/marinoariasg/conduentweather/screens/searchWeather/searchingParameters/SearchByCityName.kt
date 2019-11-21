@@ -2,9 +2,7 @@ package com.marinoariasg.conduentweather.screens.searchWeather.searchingParamete
 
 import com.marinoariasg.conduentweather.network.WeatherData
 import com.marinoariasg.conduentweather.repository.WeatherRepository
-import com.marinoariasg.conduentweather.screens.searchWeather.searchingParameters.Search
 import timber.log.Timber
-
 
 class SearchByCityName(
     var cityName: String = "", var countryCode: String = "", units: String) : Search(units) {

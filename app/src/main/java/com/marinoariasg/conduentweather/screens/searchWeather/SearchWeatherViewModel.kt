@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 const val GONE: Int = 8
 const val VISIBLE: Int = 0
 
-class SearchWeatherViewModel(_unitsFormat: String = "kelvin", application: Application) :
+class SearchWeatherViewModel(_unitsFormat: String = "metric", application: Application) :
     AndroidViewModel(application) {
 
     private val _weatherResponse = MutableLiveData<WeatherData>()
@@ -38,12 +38,23 @@ class SearchWeatherViewModel(_unitsFormat: String = "kelvin", application: Appli
 
     fun onRadioButtonClicked(radioButtonId: Int) {
         when (radioButtonId) {
-            1 -> setVisible(searchingParameters.byCityName)
-            2 -> setVisible(searchingParameters.byCityId)
+            1 -> {
+                setVisible(searchingParameters.byCityName)
+                _obj.value = searchingParameters.byCityName
+            }
+
+            2 -> {
+                setVisible(searchingParameters.byCityId)
+                _obj.value = searchingParameters.byCityId
+            }
             3 -> setVisible(searchingParameters.byLatAndLon)
             4 -> setVisible(searchingParameters.byZipCode)
         }
     }
+
+    private var _obj = MutableLiveData<Search>()
+    val obj: LiveData<Search>
+        get() = _obj
 
     private fun setVisible(searchObject: Search) {
         setSearchButtonVisible()

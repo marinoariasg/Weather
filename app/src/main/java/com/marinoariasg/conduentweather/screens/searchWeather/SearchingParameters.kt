@@ -8,6 +8,7 @@ class SearchingParameters(units: String) {
     val byCityId: SearchByCityId = SearchByCityId(units = units)
     val byLatAndLon: SearchByLatAndLon = SearchByLatAndLon(units = units)
     val byZipCode: SearchByZipCode = SearchByZipCode(units = units)
+    // Add all of the properties or searching parameters (objects) on this array
     private val searchingObjects = arrayListOf(byCityName, byCityId, byLatAndLon, byZipCode)
 
     fun setVisibility(searchObject: Search) {
@@ -32,7 +33,5 @@ class SearchingParameters(units: String) {
         }
         return null
     }
-
-
 
 }

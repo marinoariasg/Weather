@@ -3,11 +3,17 @@ package com.marinoariasg.conduentweather.screens
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
+import com.google.android.material.textfield.TextInputEditText
 import com.marinoariasg.conduentweather.R
 import com.marinoariasg.conduentweather.convertLongToDateString
 import com.marinoariasg.conduentweather.convertLongToDateStringJustTime
 import com.marinoariasg.conduentweather.formatTemperatureToString
 import com.marinoariasg.conduentweather.network.WeatherData
+import com.marinoariasg.conduentweather.screens.searchWeather.SearchingParameters
+import com.marinoariasg.conduentweather.screens.searchWeather.searchingParameters.Search
+import com.marinoariasg.conduentweather.screens.searchWeather.searchingParameters.SearchByCityId
+import com.marinoariasg.conduentweather.screens.searchWeather.searchingParameters.SearchByCityName
+import timber.log.Timber
 
 @BindingAdapter("temperature")
 fun TextView.setTemperature(item: WeatherData?) {
@@ -76,5 +82,20 @@ fun TextView.setVariousProperties(item: WeatherData?) {
                 "Wind Speed: ${item.wind?.speed} mph\n" +
                 "Sunrise:         ${convertLongToDateStringJustTime(item.sys?.sunrise)}\n" +
                 "Sunset:          ${convertLongToDateStringJustTime(item.sys?.sunset)}"
+    }
+}
+
+@BindingAdapter("hint")
+fun TextInputEditText.setHint(item: Search?) {
+    Timber.i("Binding trying to figure out Search type")
+    when(item) {
+        is SearchByCityName -> {
+            item.let { hint = "coloque Nombre" }
+            Timber.i("Name Type")
+        }
+        is SearchByCityId -> {
+            item.let { hint = "city id jajj" }
+            Timber.i("Id type")
+        }
     }
 }
