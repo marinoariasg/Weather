@@ -1,19 +1,17 @@
 package com.marinoariasg.conduentweather.screens.searchWeather
 
 import android.app.Application
+import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.marinoariasg.conduentweather.network.WeatherData
 import com.marinoariasg.conduentweather.repository.WeatherRepository
-import com.marinoariasg.conduentweather.screens.searchWeather.searchingParameters.Search
+import com.marinoariasg.conduentweather.screens.searchWeather.searchingParameters.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-
-const val GONE: Int = 8
-const val VISIBLE: Int = 0
 
 class SearchWeatherViewModel(_unitsFormat: String = "metric", application: Application) :
     AndroidViewModel(application) {
@@ -28,10 +26,19 @@ class SearchWeatherViewModel(_unitsFormat: String = "metric", application: Appli
 
     private val weatherRepository: WeatherRepository = WeatherRepository()
 
-    val searchingParameters = SearchingParameters(_unitsFormat)
+    private val searchingParameters = SearchingParameters(_unitsFormat)
+
+    private var _searchParameterToShow = MutableLiveData<Search>()
+    // Used by TextView on the xml
+    val searchParameterToShow: LiveData<Search>
+        get() = _searchParameterToShow
+
+    // EditTexts inputs from the xml
+    var editTextFirstInput = ""
+    var editTextSecondInput = ""
 
     // Button Visibility and options
-    private var _buttonVisibility = MutableLiveData<Int>(GONE)
+    private var _buttonVisibility = MutableLiveData<Int>(View.GONE)
     // Used by the xml
     val buttonVisibility: LiveData<Int>
         get() = _buttonVisibility
@@ -42,39 +49,37 @@ class SearchWeatherViewModel(_unitsFormat: String = "metric", application: Appli
             2 -> setVisible(searchingParameters.byCityId)
             3 -> setVisible(searchingParameters.byLatAndLon)
             4 -> setVisible(searchingParameters.byZipCode)
-
         }
     }
 
-    private var _currentSearchObjOnEditText = MutableLiveData<Search>()
-    // Used by TextView on the xml
-    val currentSearchObjOnEditText: LiveData<Search>
-        get() = _currentSearchObjOnEditText
-
-    // this is for the visibility of the editText
-    fun setVisibleEditTextForSearchObject(searchObject: Search) {
-        _currentSearchObjOnEditText.value = searchObject
-    }
-
-    private fun setVisible(searchObject: Search) {
+    private fun setVisible(searchParameter: Search) {
         setSearchButtonVisible()
-        searchingParameters.setVisibility(searchObject)
-        setVisibleEditTextForSearchObject(searchObject)
+        showThisSearchParameter(searchParameter)
     }
 
     private fun setSearchButtonVisible() {
         // Just do this if the button is not visible.
-        if (buttonVisibility.value == GONE) _buttonVisibility.value = VISIBLE
+        if (buttonVisibility.value == View.GONE) _buttonVisibility.value = View.VISIBLE
     }
 
-    // Button can only call this when is visible (after a radio button have been selected)
+    // this is for the visibility of the editText
+    private fun showThisSearchParameter(searchParameter: Search) {
+        _searchParameterToShow.value = searchParameter
+    }
+
     fun onButtonSearchClicked() {
-        updateWeatherResponse(searchingParameters.getCurrentVisibleObject()!!)
+        // Before checking for weather get the editText info from user
+        searchingParameters.addInfoFromEtToShowingParameter(
+            firstInput = editTextFirstInput, secondInput = editTextSecondInput,
+            showingSearchParameter = searchParameterToShow.value!!
+        )
+        // Update with the current parameter selected by the radio button
+        updateWeatherResponse(searchParameterToShow.value!!)
     }
 
-    private fun updateWeatherResponse(searchObject: Search) {
+    private fun updateWeatherResponse(searchParameter: Search) {
         viewModelScope.launch {
-            _weatherResponse.value = searchObject.getDataFromRepository(weatherRepository)
+            _weatherResponse.value = searchParameter.getDataFromRepository(weatherRepository)
         }
     }
 

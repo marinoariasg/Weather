@@ -61,7 +61,7 @@
 
         </RadioGroup>
 
-        <!--        search by City Name-->
+        <!--        first Input-->
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="30dp"
@@ -70,15 +70,15 @@
             android:layout_marginRight="16dp"
             android:background="@drawable/search_location_background_edit_text"
             android:hint="City Name"
-            app:firstParameter="@{searchWeatherViewModel.currentSearchObjOnEditText}"
+            app:firstParameter="@{searchWeatherViewModel.searchParameterToShow}"
             android:inputType="text"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:text="@={searchWeatherViewModel.searchingParameters.byCityName.cityName}"
+            android:text="@={searchWeatherViewModel.editTextFirstInput}"
             android:textSize="18sp"
             android:visibility="gone" />
 
-        <!--        country code-->
+        <!--        second Input-->
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="30dp"
@@ -87,18 +87,13 @@
             android:layout_marginRight="16dp"
             android:background="@drawable/search_location_background_edit_text"
             android:hint="County Code"
-            app:secondParameter="@{searchWeatherViewModel.currentSearchObjOnEditText}"
+            app:secondParameter="@{searchWeatherViewModel.searchParameterToShow}"
             android:inputType="text"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:text="@={searchWeatherViewModel.searchingParameters.byCityName.countryCode}"
+            android:text="@={searchWeatherViewModel.editTextSecondInput}"
             android:textSize="18sp"
             android:visibility="gone" />
-
-
-
-
-
 
 
         <Button
