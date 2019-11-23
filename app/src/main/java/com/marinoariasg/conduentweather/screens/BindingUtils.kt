@@ -1,6 +1,5 @@
 package com.marinoariasg.conduentweather.screens
 
-import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -60,8 +59,7 @@ fun TextView.setCityName(item: WeatherData?) {
 @BindingAdapter("timeOfCalculation")
 fun TextView.setTimeOfCalculation(item: WeatherData?) {
     item?.let {
-        text =
-            convertLongToDateString(item.timeOfDataCalculation)
+        text = convertLongToDateString(item.timeOfDataCalculation)
     }
 }
 
@@ -88,78 +86,30 @@ fun TextView.setVariousProperties(item: WeatherData?) {
     }
 }
 
-@BindingAdapter("firstParameter")
-fun TextInputEditText.setFirstParameter(searchParameterToShow: Search?) {
-    Timber.i("Binding trying to figure out Search type first InputText")
-    when (searchParameterToShow) {
-        is SearchByCityName -> {
-            searchParameterToShow.let {
-                hint = searchParameterToShow.firstParameterHint
-                inputType = searchParameterToShow.firstParameterInputType
-                setText("")
-                visibility = View.VISIBLE
-            }
-        }
-        is SearchByCityId -> {
-            searchParameterToShow.let {
-                hint = searchParameterToShow.firstParameterHint
-                inputType = searchParameterToShow.firstParameterInputType
-                setText("")
-                visibility = View.VISIBLE
-            }
-        }
-        is SearchByLatAndLon -> {
-            searchParameterToShow.let {
-                hint = searchParameterToShow.firstParameterHint
-                inputType = searchParameterToShow.firstParameterInputType
-                setText("")
-                visibility = View.VISIBLE
-            }
-        }
-        is SearchByZipCode -> {
-            searchParameterToShow.let {
-                hint = searchParameterToShow.firstParameterHint
-                inputType = searchParameterToShow.firstParameterInputType
-                setText("")
-                visibility = View.VISIBLE
-            }
-        }
+@BindingAdapter("firstInput")
+fun TextInputEditText.setFirstInput(searchParameterToShow: Search?) {
+    Timber.i("Binding first input to: $searchParameterToShow")
+    setFirstInput(searchParameterToShow!!, this)
+}
+private fun setFirstInput(searchParameterToShow: Search, textInputEditText: TextInputEditText) {
+    textInputEditText.apply {
+        setText("")
+        hint = searchParameterToShow.firstInputHint
+        inputType = searchParameterToShow.firstInputType
+        visibility = searchParameterToShow.firstInputVisibility
     }
 }
 
-@BindingAdapter("secondParameter")
-fun TextInputEditText.setSecondParameter(searchParameterToShow: Search?) {
-    Timber.i("Binding trying to figure out Search type second InputText")
-    when (searchParameterToShow) {
-        is SearchByCityName -> {
-            searchParameterToShow.let {
-                hint = searchParameterToShow.secondParameterHint
-                inputType = searchParameterToShow.secondParameterInputType
-                setText("")
-                visibility = View.VISIBLE
-            }
-        }
-        is SearchByCityId -> {
-            searchParameterToShow.let {
-                setText("")
-                visibility = View.GONE
-            }
-        }
-        is SearchByLatAndLon -> {
-            searchParameterToShow.let {
-                hint = searchParameterToShow.secondParameterHint
-                inputType = searchParameterToShow.secondParameterInputType
-                setText("")
-                visibility = View.VISIBLE
-            }
-        }
-        is SearchByZipCode -> {
-            searchParameterToShow.let {
-                hint = searchParameterToShow.secondParameterHint
-                inputType = searchParameterToShow.secondParameterInputType
-                setText("")
-                visibility = View.VISIBLE
-            }
-        }
+@BindingAdapter("secondInput")
+fun TextInputEditText.setSecondInput(searchParameterToShow: Search?) {
+    Timber.i("Binding second input to: $searchParameterToShow")
+    setSecondInput(searchParameterToShow!!, this)
+}
+private fun setSecondInput(searchParameterToShow: Search, textInputEditText: TextInputEditText) {
+    textInputEditText.apply {
+        setText("")
+        hint = searchParameterToShow.secondInputHint
+        inputType = searchParameterToShow.secondInputInputType
+        visibility = searchParameterToShow.secondInputVisibility
     }
 }

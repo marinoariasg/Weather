@@ -39,12 +39,12 @@ class ParametersManager(units: String) {
             byLatAndLon.id -> enable(byLatAndLon)
             byZipCode.id -> enable(byZipCode)
         }
-        return getEnabledParameter()
+        return getParameterEnabled()
     }
 
     private fun enable(searchParameter: Search) {
         enabledParameter = searchParameter
     }
 
-    fun getEnabledParameter() = enabledParameter
+    fun getParameterEnabled() = enabledParameter
 }

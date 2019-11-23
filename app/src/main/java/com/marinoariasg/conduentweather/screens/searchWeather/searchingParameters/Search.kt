@@ -6,10 +6,14 @@ import com.marinoariasg.conduentweather.repository.WeatherRepository
 abstract class Search(var units: String) {
 
     abstract val id: Int
-    abstract val firstParameterHint: String
-    abstract val firstParameterInputType: Int
-    abstract val secondParameterHint: String
-    abstract val secondParameterInputType: Int
+
+    abstract val firstInputHint: String
+    abstract val firstInputType: Int
+    abstract val firstInputVisibility: Int
+
+    abstract val secondInputHint: String
+    abstract val secondInputInputType: Int
+    abstract val secondInputVisibility: Int
 
     abstract suspend fun getDataFromRepository(repository: WeatherRepository): WeatherData
 }

@@ -1,6 +1,7 @@
 package com.marinoariasg.conduentweather.screens.searchWeather.searchingParameters
 
 import android.text.InputType
+import android.view.View
 import com.marinoariasg.conduentweather.network.WeatherData
 import com.marinoariasg.conduentweather.repository.WeatherRepository
 import com.marinoariasg.conduentweather.screens.searchWeather.searchingParameters.Search
@@ -8,19 +9,23 @@ import timber.log.Timber
 
 class SearchByCityId(var cityId: String = "", units: String, override val id: Int) : Search(units) {
 
-    override val firstParameterHint
+    override val firstInputHint
         get() = "City Id"
-    override val firstParameterInputType: Int
+    override val firstInputType: Int
         get() = InputType.TYPE_CLASS_NUMBER
+    override val firstInputVisibility: Int
+        get() = View.VISIBLE
 
     // Second parameter is not in use
-    override val secondParameterHint: String
+    override val secondInputHint: String
         get() = ""
-    override val secondParameterInputType: Int
+    override val secondInputInputType: Int
         get() = InputType.TYPE_CLASS_TEXT
+    override val secondInputVisibility: Int
+        get() = View.GONE
 
     override suspend fun getDataFromRepository(repository: WeatherRepository): WeatherData {
-        Timber.i("Get data searching by city Id")
+        Timber.i("Call repository")
         return repository.weatherByCityId(cityId = cityId, units = units)
     }
 
