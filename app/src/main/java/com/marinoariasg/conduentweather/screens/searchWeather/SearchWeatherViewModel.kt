@@ -25,7 +25,7 @@ class SearchWeatherViewModel(_unitsFormat: String = "imperial", application: App
 
     private val weatherRepository: WeatherRepository = WeatherRepository()
 
-    val searchingParameters = SearchingParameters(_unitsFormat)
+    val parametersManager = ParametersManager(_unitsFormat)
 
     // EditTexts inputs from the xml
     var editTextFirstInput = ""
@@ -33,23 +33,23 @@ class SearchWeatherViewModel(_unitsFormat: String = "imperial", application: App
 
     // Start with default input so it shows something at initialization
     private var _changeEditTextToThis =
-        MutableLiveData<Search>(searchingParameters.getVisibleParameter())
+        MutableLiveData<Search>(parametersManager.getEnabledParameter())
     // The external immutable LiveData, The EditText in xml binding is observing this val
     val changeEditTextToThis: LiveData<Search>
         get() = _changeEditTextToThis
 
     fun onRadioButtonClicked(searchParameterId: Int) {
         // Update EditText with new parameter selected by user
-        _changeEditTextToThis.value = searchingParameters.setVisibleFromId(searchParameterId)
+        _changeEditTextToThis.value = parametersManager.enableFromId(searchParameterId)
     }
 
     fun onButtonSearchClicked() {
         // Before checking for weather get the editText input from user
-        searchingParameters.getInputText(
+        parametersManager.getInputText(
             firstInput = editTextFirstInput, secondInput = editTextSecondInput
         )
         // Update with the current parameter selected by the radio button
-        updateWeatherResponse(searchingParameters.getVisibleParameter())
+        updateWeatherResponse(parametersManager.getEnabledParameter())
     }
 
     private fun updateWeatherResponse(searchParameter: Search) {

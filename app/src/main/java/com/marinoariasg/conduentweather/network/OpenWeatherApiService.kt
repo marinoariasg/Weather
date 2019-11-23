@@ -12,6 +12,7 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 private const val BASE_URL = "https://api.openweathermap.org/"
+// TODO: Check if you can hide this KEY somehow from github
 private const val API_KEY = "1f996ae109bde37ce5565fda4eb07438"
 
 private val moshi = Moshi.Builder()

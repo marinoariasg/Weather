@@ -41,7 +41,7 @@
                 android:id="@+id/one"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> searchWeatherViewModel.onRadioButtonClicked(searchWeatherViewModel.searchingParameters.byCityName.id)}"
+                android:onClick="@{() -> searchWeatherViewModel.onRadioButtonClicked(searchWeatherViewModel.parametersManager.byCityName.id)}"
                 android:text=" Name"
                 android:checked="true"/>
 
@@ -49,21 +49,21 @@
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> searchWeatherViewModel.onRadioButtonClicked(searchWeatherViewModel.searchingParameters.byCityId.id)}"
+                android:onClick="@{() -> searchWeatherViewModel.onRadioButtonClicked(searchWeatherViewModel.parametersManager.byCityId.id)}"
                 android:text=" ID"/>
 
             <!--            byLatAndLon-->
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> searchWeatherViewModel.onRadioButtonClicked(searchWeatherViewModel.searchingParameters.byLatAndLon.id)}"
+                android:onClick="@{() -> searchWeatherViewModel.onRadioButtonClicked(searchWeatherViewModel.parametersManager.byLatAndLon.id)}"
                 android:text=" Geographic Coordinates (Lat, Lon)" />
 
             <!--            byZipCode-->
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> searchWeatherViewModel.onRadioButtonClicked(searchWeatherViewModel.searchingParameters.byZipCode.id)}"
+                android:onClick="@{() -> searchWeatherViewModel.onRadioButtonClicked(searchWeatherViewModel.parametersManager.byZipCode.id)}"
                 android:text=" ZipCode" />
 
         </RadioGroup>

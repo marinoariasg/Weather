@@ -2,18 +2,18 @@ package com.marinoariasg.conduentweather.screens.searchWeather
 
 import com.marinoariasg.conduentweather.screens.searchWeather.searchingParameters.*
 
-class SearchingParameters(units: String) {
+class ParametersManager(units: String) {
     val byCityName: SearchByCityName = SearchByCityName(units = units, id = 1)
     val byCityId: SearchByCityId = SearchByCityId(units = units, id = 2)
     val byLatAndLon: SearchByLatAndLon = SearchByLatAndLon(units = units, id = 3)
     val byZipCode: SearchByZipCode = SearchByZipCode(units = units, id = 4)
 
     // Start with default searchParameter to display (byCityName)
-    private var visibleParameter: Search = byCityName
+    private var enabledParameter: Search = byCityName
 
     // Adds the text for the editText to the parameter that is currently on display
     fun getInputText(firstInput: String, secondInput: String) {
-        when (visibleParameter) {
+        when (enabledParameter) {
             is SearchByCityName -> {
                 byCityName.cityName = firstInput
                 byCityName.countryCode = secondInput
@@ -32,19 +32,19 @@ class SearchingParameters(units: String) {
         }
     }
 
-    fun setVisibleFromId(SearchParameterId: Int): Search {
+    fun enableFromId(SearchParameterId: Int): Search {
         when (SearchParameterId) {
-            byCityName.id -> setVisible(byCityName)
-            byCityId.id -> setVisible(byCityId)
-            byLatAndLon.id -> setVisible(byLatAndLon)
-            byZipCode.id -> setVisible(byZipCode)
+            byCityName.id -> enable(byCityName)
+            byCityId.id -> enable(byCityId)
+            byLatAndLon.id -> enable(byLatAndLon)
+            byZipCode.id -> enable(byZipCode)
         }
-        return getVisibleParameter()
+        return getEnabledParameter()
     }
 
-    private fun setVisible(searchParameter: Search) {
-        visibleParameter = searchParameter
+    private fun enable(searchParameter: Search) {
+        enabledParameter = searchParameter
     }
 
-    fun getVisibleParameter() = visibleParameter
+    fun getEnabledParameter() = enabledParameter
 }
