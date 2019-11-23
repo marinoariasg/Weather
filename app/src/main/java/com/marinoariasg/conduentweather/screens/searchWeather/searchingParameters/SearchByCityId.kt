@@ -7,7 +7,10 @@ import com.marinoariasg.conduentweather.repository.WeatherRepository
 import com.marinoariasg.conduentweather.screens.searchWeather.searchingParameters.Search
 import timber.log.Timber
 
-class SearchByCityId(var cityId: String = "", units: String, override val id: Int) : Search(units) {
+class SearchByCityId(var cityId: String = "", units: String) : Search(units) {
+
+    override val id: Id
+        get() = Id.CITY_ID
 
     override val firstInputHint
         get() = "City Id"

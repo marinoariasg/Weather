@@ -9,6 +9,10 @@
         <variable
             name="searchWeatherViewModel"
             type="com.marinoariasg.conduentweather.screens.searchWeather.SearchWeatherViewModel" />
+
+        <variable
+            name="id"
+            type="com.marinoariasg.conduentweather.screens.searchWeather.searchingParameters.Id" />
     </data>
 
     <LinearLayout
@@ -33,15 +37,15 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:orientation="vertical"
-            android:checkedButton="@id/one"
+            android:checkedButton="@id/by_city_name"
             android:theme="@style/RadioButtonStyle">
 
             <!--            byCityName-->
             <RadioButton
-                android:id="@+id/one"
+                android:id="@+id/by_city_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> searchWeatherViewModel.onRadioButtonClicked(searchWeatherViewModel.parametersManager.byCityName.id)}"
+                android:onClick="@{() -> searchWeatherViewModel.onRadioButtonClicked(id.CITY_NAME)}"
                 android:text=" Name"
                 android:checked="true"/>
 
@@ -49,21 +53,21 @@
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> searchWeatherViewModel.onRadioButtonClicked(searchWeatherViewModel.parametersManager.byCityId.id)}"
+                android:onClick="@{() -> searchWeatherViewModel.onRadioButtonClicked(id.CITY_ID)}"
                 android:text=" ID"/>
 
             <!--            byLatAndLon-->
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> searchWeatherViewModel.onRadioButtonClicked(searchWeatherViewModel.parametersManager.byLatAndLon.id)}"
+                android:onClick="@{() -> searchWeatherViewModel.onRadioButtonClicked(id.LAT_LON)}"
                 android:text=" Geographic Coordinates (Lat, Lon)" />
 
             <!--            byZipCode-->
             <RadioButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> searchWeatherViewModel.onRadioButtonClicked(searchWeatherViewModel.parametersManager.byZipCode.id)}"
+                android:onClick="@{() -> searchWeatherViewModel.onRadioButtonClicked(id.ZIP_CODE)}"
                 android:text=" ZipCode" />
 
         </RadioGroup>
@@ -81,7 +85,6 @@
             android:paddingRight="20dp"
             android:text="@={searchWeatherViewModel.editTextFirstInput}"
             android:textSize="18sp"
-            android:visibility="gone"
             app:firstInput="@{searchWeatherViewModel.parameterEnabled}" />
 
         <!--        Parameter second Input-->
@@ -97,7 +100,6 @@
             android:paddingRight="20dp"
             android:text="@={searchWeatherViewModel.editTextSecondInput}"
             android:textSize="18sp"
-            android:visibility="gone"
             app:secondInput="@{searchWeatherViewModel.parameterEnabled}" />
 
         <Button

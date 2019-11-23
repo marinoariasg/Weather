@@ -7,8 +7,10 @@ import com.marinoariasg.conduentweather.repository.WeatherRepository
 import timber.log.Timber
 
 class SearchByLatAndLon(
-    var latitude: String = "", var longitude: String = "", units: String, override val id: Int
-) : Search(units) {
+    var latitude: String = "", var longitude: String = "", units: String) : Search(units) {
+
+    override val id: Id
+        get() = Id.LAT_LON
 
     override val firstInputHint
         get() = "Latitude"

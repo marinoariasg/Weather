@@ -8,8 +8,10 @@ import com.marinoariasg.conduentweather.screens.searchWeather.searchingParameter
 import timber.log.Timber
 
 class SearchByZipCode(
-    var zipCode: String = "", var countryCode: String = "", units: String, override val id: Int
-) : Search(units) {
+    var zipCode: String = "", var countryCode: String = "", units: String) : Search(units) {
+
+    override val id: Id
+        get() = Id.ZIP_CODE
 
     override val firstInputHint
         get() = "City ZipCode"

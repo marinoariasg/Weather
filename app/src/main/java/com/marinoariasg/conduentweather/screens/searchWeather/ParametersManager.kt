@@ -3,17 +3,17 @@ package com.marinoariasg.conduentweather.screens.searchWeather
 import com.marinoariasg.conduentweather.screens.searchWeather.searchingParameters.*
 
 class ParametersManager(units: String) {
-    val byCityName: SearchByCityName = SearchByCityName(units = units, id = 1)
-    val byCityId: SearchByCityId = SearchByCityId(units = units, id = 2)
-    val byLatAndLon: SearchByLatAndLon = SearchByLatAndLon(units = units, id = 3)
-    val byZipCode: SearchByZipCode = SearchByZipCode(units = units, id = 4)
+    private val byCityName: SearchByCityName = SearchByCityName(units = units)
+    private val byCityId: SearchByCityId = SearchByCityId(units = units)
+    private val byLatAndLon: SearchByLatAndLon = SearchByLatAndLon(units = units)
+    private val byZipCode: SearchByZipCode = SearchByZipCode(units = units)
 
     // Start with default searchParameter to display (byCityName)
     private var enabledParameter: Search = byCityName
 
-    // Adds the text for the editText to the parameter that is currently on display
+    // Add the text for the editText to the parameter that is currently on display
     fun getInputText(firstInput: String, secondInput: String) {
-        when (enabledParameter) {
+        when (getEnabled()) {
             is SearchByCityName -> {
                 byCityName.cityName = firstInput
                 byCityName.countryCode = secondInput
@@ -32,19 +32,19 @@ class ParametersManager(units: String) {
         }
     }
 
-    fun enableFromId(SearchParameterId: Int): Search {
+    fun enableWithId(SearchParameterId: Id): Search {
         when (SearchParameterId) {
-            byCityName.id -> enable(byCityName)
             byCityId.id -> enable(byCityId)
             byLatAndLon.id -> enable(byLatAndLon)
             byZipCode.id -> enable(byZipCode)
+            else -> enable(byCityName)
         }
-        return getParameterEnabled()
+        return getEnabled()
     }
 
     private fun enable(searchParameter: Search) {
         enabledParameter = searchParameter
     }
 
-    fun getParameterEnabled() = enabledParameter
+    fun getEnabled() = enabledParameter
 }

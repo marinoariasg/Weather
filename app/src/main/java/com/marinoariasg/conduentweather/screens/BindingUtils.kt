@@ -87,29 +87,29 @@ fun TextView.setVariousProperties(item: WeatherData?) {
 }
 
 @BindingAdapter("firstInput")
-fun TextInputEditText.setFirstInput(searchParameterToShow: Search?) {
-    Timber.i("Binding first input to: $searchParameterToShow")
-    setFirstInput(searchParameterToShow!!, this)
+fun TextInputEditText.setFirstInput(parameterEnabled: Search?) {
+    Timber.i("Binding first input to: $parameterEnabled")
+    setFirstInput(parameterEnabled!!, this)
 }
-private fun setFirstInput(searchParameterToShow: Search, textInputEditText: TextInputEditText) {
+private fun setFirstInput(parameterEnabled: Search, textInputEditText: TextInputEditText) {
     textInputEditText.apply {
         setText("")
-        hint = searchParameterToShow.firstInputHint
-        inputType = searchParameterToShow.firstInputType
-        visibility = searchParameterToShow.firstInputVisibility
+        hint = parameterEnabled.firstInputHint
+        inputType = parameterEnabled.firstInputType
+        visibility = parameterEnabled.firstInputVisibility
     }
 }
 
 @BindingAdapter("secondInput")
-fun TextInputEditText.setSecondInput(searchParameterToShow: Search?) {
-    Timber.i("Binding second input to: $searchParameterToShow")
-    setSecondInput(searchParameterToShow!!, this)
+fun TextInputEditText.setSecondInput(parameterEnabled: Search?) {
+    Timber.i("Binding second input to: $parameterEnabled")
+    setSecondInput(parameterEnabled!!, this)
 }
-private fun setSecondInput(searchParameterToShow: Search, textInputEditText: TextInputEditText) {
+private fun setSecondInput(parameterEnabled: Search, textInputEditText: TextInputEditText) {
     textInputEditText.apply {
         setText("")
-        hint = searchParameterToShow.secondInputHint
-        inputType = searchParameterToShow.secondInputInputType
-        visibility = searchParameterToShow.secondInputVisibility
+        hint = parameterEnabled.secondInputHint
+        inputType = parameterEnabled.secondInputInputType
+        visibility = parameterEnabled.secondInputVisibility
     }
 }

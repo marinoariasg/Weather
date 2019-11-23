@@ -5,7 +5,7 @@ import com.marinoariasg.conduentweather.repository.WeatherRepository
 
 abstract class Search(var units: String) {
 
-    abstract val id: Int
+    abstract val id: Id
 
     abstract val firstInputHint: String
     abstract val firstInputType: Int
