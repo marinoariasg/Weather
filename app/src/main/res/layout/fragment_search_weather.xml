@@ -79,10 +79,10 @@
             android:inputType="text"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:text="@={searchWeatherViewModel.searchingParameters.editTextFirstInput}"
+            android:text="@={searchWeatherViewModel.editTextFirstInput}"
             android:textSize="18sp"
             android:visibility="gone"
-            app:firstParameter="@{searchWeatherViewModel.searchParameterToShow}" />
+            app:firstParameter="@{searchWeatherViewModel.changeEditTextToThis}" />
 
         <!--        second Input-->
         <com.google.android.material.textfield.TextInputEditText
@@ -95,10 +95,10 @@
             android:inputType="text"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:text="@={searchWeatherViewModel.searchingParameters.editTextSecondInput}"
+            android:text="@={searchWeatherViewModel.editTextSecondInput}"
             android:textSize="18sp"
             android:visibility="gone"
-            app:secondParameter="@{searchWeatherViewModel.searchParameterToShow}" />
+            app:secondParameter="@{searchWeatherViewModel.changeEditTextToThis}" />
 
         <Button
             style="?android:attr/borderlessButtonStyle"

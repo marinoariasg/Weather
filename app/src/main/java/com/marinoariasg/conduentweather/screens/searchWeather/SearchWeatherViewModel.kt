@@ -15,44 +15,41 @@ import kotlinx.coroutines.launch
 class SearchWeatherViewModel(_unitsFormat: String = "imperial", application: Application) :
     AndroidViewModel(application) {
 
+    private var viewModelJob = Job()
+    private val viewModelScope = CoroutineScope(viewModelJob + Dispatchers.Main)
+
     private val _weatherResponse = MutableLiveData<WeatherData>()
     // The external immutable LiveData, The xml binding is observing this val
     val weatherResponse: LiveData<WeatherData>
         get() = _weatherResponse
 
-    private var viewModelJob = Job()
-    private val viewModelScope = CoroutineScope(viewModelJob + Dispatchers.Main)
-
     private val weatherRepository: WeatherRepository = WeatherRepository()
 
     val searchingParameters = SearchingParameters(_unitsFormat)
 
-    // Start with default searchParameter to display (byCityName)
-    private var _searchParameterToShow = MutableLiveData<Search>(searchingParameters.byCityName)
-    // Used by TextView on the xml
-    val searchParameterToShow: LiveData<Search>
-        get() = _searchParameterToShow
+    // EditTexts inputs from the xml
+    var editTextFirstInput = ""
+    var editTextSecondInput = ""
+
+    // Start with default input so it shows something at initialization
+    private var _changeEditTextToThis =
+        MutableLiveData<Search>(searchingParameters.getVisibleParameter())
+    // The external immutable LiveData, The EditText in xml binding is observing this val
+    val changeEditTextToThis: LiveData<Search>
+        get() = _changeEditTextToThis
 
     fun onRadioButtonClicked(searchParameterId: Int) {
-        when (searchParameterId) {
-            searchingParameters.byCityName.id -> setVisible(searchingParameters.byCityName)
-            searchingParameters.byCityId.id -> setVisible(searchingParameters.byCityId)
-            searchingParameters.byLatAndLon.id -> setVisible(searchingParameters.byLatAndLon)
-            searchingParameters.byZipCode.id -> setVisible(searchingParameters.byZipCode)
-        }
-    }
-
-    private fun setVisible(searchParameter: Search) {
-        _searchParameterToShow.value = searchParameter
+        // Update EditText with new parameter selected by user
+        _changeEditTextToThis.value = searchingParameters.setVisibleFromId(searchParameterId)
     }
 
     fun onButtonSearchClicked() {
-        // Before checking for weather get the editText info from user
-        searchingParameters.getTextFromEditText(
-            showingSearchParameter = searchParameterToShow.value!!
+        // Before checking for weather get the editText input from user
+        searchingParameters.getInputText(
+            firstInput = editTextFirstInput, secondInput = editTextSecondInput
         )
         // Update with the current parameter selected by the radio button
-        updateWeatherResponse(searchParameterToShow.value!!)
+        updateWeatherResponse(searchingParameters.getVisibleParameter())
     }
 
     private fun updateWeatherResponse(searchParameter: Search) {

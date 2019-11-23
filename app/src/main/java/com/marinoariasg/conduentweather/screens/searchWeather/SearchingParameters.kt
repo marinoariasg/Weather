@@ -8,29 +8,43 @@ class SearchingParameters(units: String) {
     val byLatAndLon: SearchByLatAndLon = SearchByLatAndLon(units = units, id = 3)
     val byZipCode: SearchByZipCode = SearchByZipCode(units = units, id = 4)
 
-    // EditTexts inputs from the xml
-    var editTextFirstInput = ""
-    var editTextSecondInput = ""
+    // Start with default searchParameter to display (byCityName)
+    private var visibleParameter: Search = byCityName
 
     // Adds the text for the editText to the parameter that is currently on display
-    fun getTextFromEditText(showingSearchParameter: Search) {
-        when (showingSearchParameter) {
+    fun getInputText(firstInput: String, secondInput: String) {
+        when (visibleParameter) {
             is SearchByCityName -> {
-                byCityName.cityName = editTextFirstInput
-                byCityName.countryCode = editTextSecondInput
+                byCityName.cityName = firstInput
+                byCityName.countryCode = secondInput
             }
             is SearchByCityId -> {
-                byCityId.cityId = editTextFirstInput
+                byCityId.cityId = firstInput
             }
             is SearchByLatAndLon -> {
-                byLatAndLon.latitude = editTextFirstInput
-                byLatAndLon.longitude = editTextSecondInput
+                byLatAndLon.latitude = firstInput
+                byLatAndLon.longitude = secondInput
             }
             is SearchByZipCode -> {
-                byZipCode.zipCode = editTextFirstInput
-                byZipCode.countryCode = editTextSecondInput
+                byZipCode.zipCode = firstInput
+                byZipCode.countryCode = secondInput
             }
         }
     }
 
+    fun setVisibleFromId(SearchParameterId: Int): Search {
+        when (SearchParameterId) {
+            byCityName.id -> setVisible(byCityName)
+            byCityId.id -> setVisible(byCityId)
+            byLatAndLon.id -> setVisible(byLatAndLon)
+            byZipCode.id -> setVisible(byZipCode)
+        }
+        return getVisibleParameter()
+    }
+
+    private fun setVisible(searchParameter: Search) {
+        visibleParameter = searchParameter
+    }
+
+    fun getVisibleParameter() = visibleParameter
 }
