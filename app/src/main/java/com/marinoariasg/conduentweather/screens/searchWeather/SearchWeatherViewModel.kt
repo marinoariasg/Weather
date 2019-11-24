@@ -31,6 +31,11 @@ class SearchWeatherViewModel(_unitsFormat: String = "imperial", application: App
     var editTextFirstInput = ""
     var editTextSecondInput = ""
 
+    private var _userInputFeedBack = MutableLiveData<String>()
+    // Observable variable used by the fragment
+    val userInputFeedBack: LiveData<String>
+        get() = _userInputFeedBack
+
     // Start with default input so it shows something at initialization
     private var _parameterEnabled = MutableLiveData<Search>(parametersManager.getEnabled())
     // The external immutable LiveData, The EditText in xml binding is observing this val
@@ -43,12 +48,22 @@ class SearchWeatherViewModel(_unitsFormat: String = "imperial", application: App
     }
 
     fun onButtonSearchClicked() {
-        // Before checking for weather get the editText input from user
-        parametersManager.getInputText(
-            firstInput = editTextFirstInput, secondInput = editTextSecondInput
-        )
-        // Update with the current parameter selected by the radio button
-        updateWeatherResponse(parametersManager.getEnabled())
+        if (isUserInputOk()) {
+            // Update with the current parameter selected by the radio button
+            updateWeatherResponse(parametersManager.getEnabled())
+        }
+    }
+
+    private fun isUserInputOk(): Boolean {
+        val userInputChecked =
+        parametersManager.isTextInputOk(firstInput = editTextFirstInput, secondInput = editTextSecondInput)
+        return if (userInputChecked == null) {
+            true
+        } else {
+            // Update user to what is wrong with their input
+            _userInputFeedBack.value = userInputChecked
+            false
+        }
     }
 
     private fun updateWeatherResponse(searchParameter: Search) {

@@ -6,8 +6,11 @@ import com.marinoariasg.conduentweather.network.WeatherData
 import com.marinoariasg.conduentweather.repository.WeatherRepository
 import timber.log.Timber
 
-class SearchByCityName(
-    var cityName: String = "", var countryCode: String = "", units: String) : Search(units) {
+class SearchByCityName(units: String) : Search(units) {
+
+    private var cityName: String = ""
+
+    private var countryCode: String = ""
 
     override val id: Id
         get() = Id.CITY_NAME
@@ -31,6 +34,20 @@ class SearchByCityName(
         return repository.weatherByCityName(
             cityName = cityName, countryCode = countryCode, units = units
         )
+    }
+
+    // TODO: Fix validations for all possible conditions.
+    override fun canUpdateTextInputs(firstInput: String, secondInput: String): String? {
+        return if (firstInput.isNotEmpty()) {
+            cityName = firstInput
+            countryCode = secondInput
+            null
+        } else {
+            "e.g: " +
+                    "\nCityName= London" +
+                    "\nor" +
+                    "\nCityName= London; CountryCode= Uk "
+        }
     }
 
 }

@@ -7,8 +7,11 @@ import com.marinoariasg.conduentweather.repository.WeatherRepository
 import com.marinoariasg.conduentweather.screens.searchWeather.searchingParameters.Search
 import timber.log.Timber
 
-class SearchByZipCode(
-    var zipCode: String = "", var countryCode: String = "", units: String) : Search(units) {
+class SearchByZipCode(units: String) : Search(units) {
+
+    private var zipCode: String = ""
+
+    private var countryCode: String = ""
 
     override val id: Id
         get() = Id.ZIP_CODE
@@ -32,5 +35,16 @@ class SearchByZipCode(
         return repository.weatherByZipCode(
             zipCode = zipCode, countryCode = countryCode, units = units
         )
+    }
+
+    // TODO: Fix validations for all possible conditions.
+    override fun canUpdateTextInputs(firstInput: String, secondInput: String): String? {
+        return if (firstInput.isNotEmpty()) {
+            zipCode = firstInput
+            countryCode = secondInput
+            null
+        } else {
+            "e.g: zipCode= 94040, CountryCode= us"
+        }
     }
 }

@@ -16,4 +16,9 @@ abstract class Search(var units: String) {
     abstract val secondInputVisibility: Int
 
     abstract suspend fun getDataFromRepository(repository: WeatherRepository): WeatherData
+
+    // TODO: Try to get a different return value, something like that tells
+    //  positive output yes it can be update
+    //  negative output not this can not be done because of this:
+    abstract fun canUpdateTextInputs(firstInput: String, secondInput: String): String?
 }

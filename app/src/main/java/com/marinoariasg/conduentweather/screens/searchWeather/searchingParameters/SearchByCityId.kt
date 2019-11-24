@@ -7,7 +7,9 @@ import com.marinoariasg.conduentweather.repository.WeatherRepository
 import com.marinoariasg.conduentweather.screens.searchWeather.searchingParameters.Search
 import timber.log.Timber
 
-class SearchByCityId(var cityId: String = "", units: String) : Search(units) {
+class SearchByCityId(units: String) : Search(units) {
+
+    private var cityId: String = ""
 
     override val id: Id
         get() = Id.CITY_ID
@@ -30,6 +32,16 @@ class SearchByCityId(var cityId: String = "", units: String) : Search(units) {
     override suspend fun getDataFromRepository(repository: WeatherRepository): WeatherData {
         Timber.i("Call repository")
         return repository.weatherByCityId(cityId = cityId, units = units)
+    }
+
+    // TODO: Fix validations for all possible conditions.
+    override fun canUpdateTextInputs(firstInput: String, secondInput: String): String? {
+        return if (firstInput.isNotEmpty()) {
+            cityId = firstInput
+            null
+        } else {
+            "e.g: City Id= 2172797"
+        }
     }
 
 }

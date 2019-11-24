@@ -11,24 +11,22 @@ class ParametersManager(units: String) {
     // Start with default searchParameter to display (byCityName)
     private var enabledParameter: Search = byCityName
 
-    // Add the text for the editText to the parameter that is currently on display
-    fun getInputText(firstInput: String, secondInput: String) {
-        when (getEnabled()) {
+    // Add the text from the editText to the parameter that is currently on display
+    fun isTextInputOk(firstInput: String, secondInput: String): String? {
+        return when (getEnabled()) {
             is SearchByCityName -> {
-                byCityName.cityName = firstInput
-                byCityName.countryCode = secondInput
+                byCityName.canUpdateTextInputs(firstInput = firstInput, secondInput = secondInput)
             }
             is SearchByCityId -> {
-                byCityId.cityId = firstInput
+                byCityId.canUpdateTextInputs(firstInput = firstInput, secondInput = secondInput)
             }
             is SearchByLatAndLon -> {
-                byLatAndLon.latitude = firstInput
-                byLatAndLon.longitude = secondInput
+                byLatAndLon.canUpdateTextInputs(firstInput = firstInput, secondInput = secondInput)
             }
             is SearchByZipCode -> {
-                byZipCode.zipCode = firstInput
-                byZipCode.countryCode = secondInput
+                byZipCode.canUpdateTextInputs(firstInput = firstInput, secondInput = secondInput)
             }
+            else -> "No parameter enabled"
         }
     }
 
