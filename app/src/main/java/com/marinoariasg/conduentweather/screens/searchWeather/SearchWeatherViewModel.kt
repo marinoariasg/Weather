@@ -42,9 +42,9 @@ class SearchWeatherViewModel(_unitsFormat: String = "imperial", application: App
     val parameterEnabled: LiveData<Search>
         get() = _parameterEnabled
 
-    fun onRadioButtonClicked(searchParameterId: Id) {
+    fun onRadioButtonClicked(searchParameterParameterId: ParameterId) {
         // Update EditText with new parameter selected by user
-        _parameterEnabled.value = parametersManager.enableWithId(searchParameterId)
+        _parameterEnabled.value = parametersManager.enableWithId(searchParameterParameterId)
     }
 
     fun onButtonSearchClicked() {

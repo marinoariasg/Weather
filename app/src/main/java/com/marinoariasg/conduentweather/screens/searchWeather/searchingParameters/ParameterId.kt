@@ -1,6 +1,6 @@
 package com.marinoariasg.conduentweather.screens.searchWeather.searchingParameters
 
-enum class Id {
+enum class ParameterId {
     CITY_NAME,
     CITY_ID,
     LAT_LON,
