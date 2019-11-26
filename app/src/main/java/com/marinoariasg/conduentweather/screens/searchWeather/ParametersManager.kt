@@ -1,6 +1,7 @@
 package com.marinoariasg.conduentweather.screens.searchWeather
 
 import com.marinoariasg.conduentweather.screens.searchWeather.searchingParameters.*
+import com.marinoariasg.conduentweather.screens.searchWeather.searchingParameters.ParameterId.*
 
 class ParametersManager(units: String) {
     private val byCityName = Search.ByCityName(units = units)
@@ -31,10 +32,10 @@ class ParametersManager(units: String) {
 
     fun enableWithId(searchParameterId: ParameterId): Search {
         when (searchParameterId) {
-            byCityId.parameterId -> enable(byCityId)
-            byLatAndLon.parameterId -> enable(byLatAndLon)
-            byZipCode.parameterId -> enable(byZipCode)
-            else -> enable(byCityName)
+            CITY_NAME -> enable(byCityName)
+            CITY_ID -> enable(byCityId)
+            LAT_LON -> enable(byLatAndLon)
+            ZIP_CODE -> enable(byZipCode)
         }
         return getEnabled()
     }
